@@ -77,11 +77,11 @@ const Footer: React.FC = () => {
             <h3 className="text-white text-[10px] font-black uppercase tracking-[0.3em] mb-8">Explore</h3>
             <ul className="space-y-4 text-sm font-light">
               <li><Link to="/" className="hover:text-gold-400 transition-colors">Home</Link></li>
-              <li><Link to="/about" className="hover:text-gold-400 transition-colors">About Us</Link></li>
+              <li><Link to="/about-hair-loss" className="hover:text-gold-400 transition-colors">About Hair Loss</Link></li>
               <li><Link to="/procedures" className="hover:text-gold-400 transition-colors">Procedures</Link></li>
               <li><Link to="/results" className="hover:text-gold-400 transition-colors">Results</Link></li>
-              <li><Link to="/news" className="hover:text-gold-400 transition-colors">News</Link></li>
-              <li><Link to="/blog" className="hover:text-gold-400 transition-colors">Blog</Link></li>
+              <li><Link to="/insights" className="hover:text-gold-400 transition-colors">News & Articles</Link></li>
+              <li><Link to="/team" className="hover:text-gold-400 transition-colors">Our Team</Link></li>
               <li><Link to="/contact" className="hover:text-gold-400 transition-colors">Contact</Link></li>
             </ul>
           </div>
@@ -94,7 +94,17 @@ const Footer: React.FC = () => {
                   <MapPin className="h-4 w-4 text-gold-500" />
                 </div>
                 <span className="group-hover:text-white transition-colors leading-relaxed">
-                  Semi basement, Mahavir Tower, Paldi Rd,<br />opp. HP Petrol pump, Ahmedabad 380007
+                  {SITE.addressLine1},<br />
+                  {SITE.addressLine2},<br />
+                  {SITE.addressLine3}
+                </span>
+              </li>
+              <li className="flex items-center gap-4 group">
+                <div className="w-8 h-8 bg-gold-500/10 rounded-lg flex items-center justify-center flex-shrink-0 group-hover:bg-gold-500/20 transition-all">
+                  <span className="text-gold-500 text-[10px] font-black">HRS</span>
+                </div>
+                <span className="group-hover:text-white transition-colors">
+                  {SITE.officeHoursDisplay} (Except {SITE.officeClosedDay})
                 </span>
               </li>
               <li className="flex items-center gap-4 group">

@@ -5,37 +5,39 @@ import { ArrowRight, Microscope, Zap, ShieldCheck, Award, CheckCircle2 } from 'l
 const procedureCategories = [
   {
     title: "Diagnostic & Care",
-    description: "The essential first step in your journey. We use advanced technology to understand your unique hair profile.",
+    description: "The first step in every journey: objective scalp and hair analysis to choose the right treatment pathway.",
     icon: <Microscope className="w-8 h-8" />,
     image: "https://images.unsplash.com/photo-1579152276502-545a248a9931?auto=format&fit=crop&q=80&w=800",
     items: [
-      { name: "Overview", path: "/procedures/overview" },
-      { name: "Advanced Hair Check Solution", path: "/procedures/hair-check" },
-      { name: "Advanced Laser Therapy", path: "/procedures/laser-therapy" },
+      { name: "H4L® Hair Check", path: "/procedures/hair-check" },
+      { name: "H4L® Laser Therapy", path: "/procedures/laser-therapy" },
+      { name: "H4L® PRP", path: "/procedures/flashpoints" },
     ]
   },
   {
-    title: "Strand-by-Strand & Programs",
-    description: "Our signature restoration programs designed for maximum density and natural integration.",
+    title: "Restoration Programs",
+    description: "Core clinical and cosmetic programs designed for density, continuity, and natural integration.",
     icon: <Zap className="w-8 h-8" />,
     image: "https://images.unsplash.com/photo-1620331713240-ed6d53b52e4c?auto=format&fit=crop&q=80&w=800",
     items: [
-      { name: "Strand-by-Strand the Ultimate ®", path: "/procedures/ultimate" },
-      { name: "Strand-by-Strand Cosmetic®", path: "/procedures/cosmetic" },
-      { name: "Hair4Life Flashpoints", path: "/procedures/flashpoints" },
-      { name: "Hair4Life Home Care Program", path: "/procedures/home-program" },
-      { name: "Hair & Scalp Fitness Program (H4L-FP)", path: "/procedures/fitness-program" },
-      { name: "Hair4Life Supernatural", path: "/procedures/supernatural" },
+      { name: "H4L® FUI", path: "/procedures/ultimate" },
+      { name: "H4L® NMHR", path: "/procedures/cosmetic" },
+      { name: "H4L® Blend", path: "/procedures/supernatural" },
+      { name: "H4L® Home Program", path: "/procedures/home-program" },
+      { name: "Hair & Scalp Fitness Program", path: "/procedures/fitness-program" },
+      { name: "H4L® Complete", path: "/procedures/complete" },
     ]
   },
   {
-    title: "Advanced Solutions",
-    description: "Targeted solutions for specific hair loss patterns and comprehensive restoration needs.",
+    title: "Hair & Skin Services",
+    description: "Supportive services for grooming, scalp maintenance, and complete skin and beard-focused care.",
     icon: <ShieldCheck className="w-8 h-8" />,
     image: "https://images.unsplash.com/photo-1516549655169-df83a0774514?auto=format&fit=crop&q=80&w=800",
     items: [
-      { name: "Hair4Life Complete", path: "/procedures/complete" },
-      { name: "Male Pattern Baldness", path: "/procedures/male-baldness" },
+      { name: "H4L® Women Procedure", path: "/procedures/women-procedure" },
+      { name: "H4L® Skincare", path: "/procedures/skincare" },
+      { name: "H4L® Products", path: "/procedures/products" },
+      { name: "H4L® Salon Services", path: "/procedures/salon-services" },
     ]
   }
 ];

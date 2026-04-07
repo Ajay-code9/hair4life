@@ -19,39 +19,40 @@ const Navbar: React.FC = () => {
 
   const navLinks = [
     { name: 'Home', path: '/' },
-    { name: 'About Us', path: '/about' },
+    { name: 'About Hair Loss', path: '/about-hair-loss' },
     { name: 'Procedures', path: '/procedures', hasDropdown: true },
+    { name: 'Our Team', path: '/team' },
     { name: 'Results', path: '/results' },
-    { name: 'News', path: '/news' },
-    { name: 'Blog', path: '/blog' },
-    { name: 'Contact', path: '/contact' },
+    { name: 'News & Articles', path: '/insights' },
   ];
 
   const procedures = [
     {
       category: "DIAGNOSTIC & CARE",
       items: [
-        { name: "Overview", path: "/procedures/overview" },
-        { name: "Advanced Hair Check Solution", path: "/procedures/hair-check" },
-        { name: "Advanced Laser Therapy", path: "/procedures/laser-therapy" },
+        { name: "H4L® Hair Check", path: "/procedures/hair-check" },
+        { name: "H4L® Laser Therapy", path: "/procedures/laser-therapy" },
+        { name: "H4L® PRP", path: "/procedures/flashpoints" },
       ]
     },
     {
-      category: "STRAND-BY-STRAND & PROGRAMS",
+      category: "RESTORATION PROGRAMS",
       items: [
-        { name: "Strand-by-Strand the Ultimate ®", path: "/procedures/ultimate" },
-        { name: "Strand-by-Strand Cosmetic®", path: "/procedures/cosmetic" },
-        { name: "Hair4Life Flashpoints", path: "/procedures/flashpoints" },
-        { name: "Hair4Life Home Care Program", path: "/procedures/home-program" },
-        { name: "Hair & Scalp Fitness Program (H4L-FP)", path: "/procedures/fitness-program" },
-        { name: "Hair4Life Supernatural", path: "/procedures/supernatural" },
+        { name: "H4L® FUI", path: "/procedures/ultimate" },
+        { name: "H4L® NMHR", path: "/procedures/cosmetic" },
+        { name: "H4L® Blend", path: "/procedures/supernatural" },
+        { name: "H4L® Home Program", path: "/procedures/home-program" },
+        { name: "Hair & Scalp Fitness Program", path: "/procedures/fitness-program" },
+        { name: "H4L® Complete", path: "/procedures/complete" },
       ]
     },
     {
-      category: "ADVANCED SOLUTIONS",
+      category: "HAIR & SKIN SERVICES",
       items: [
-        { name: "Hair4Life Complete", path: "/procedures/complete" },
-        { name: "Male Pattern Baldness", path: "/procedures/male-baldness" },
+        { name: "H4L® Women Procedure", path: "/procedures/women-procedure" },
+        { name: "H4L® Skincare", path: "/procedures/skincare" },
+        { name: "H4L® Products", path: "/procedures/products" },
+        { name: "H4L® Salon Services", path: "/procedures/salon-services" },
       ]
     }
   ];
@@ -86,11 +87,11 @@ const Navbar: React.FC = () => {
             <div className="hidden md:flex items-center gap-6">
               <span className="flex items-center gap-2 hover:text-white transition-colors cursor-default">
                 <MapPin className="w-3 h-3 text-gold-500" />
-                Semi basement, Mahavir Tower, Paldi Rd, Ahmedabad
+                {SITE.addressLine1}, Paldi, Ahmedabad
               </span>
               <span className="flex items-center gap-2 hover:text-white transition-colors cursor-default">
                 <Clock className="w-3 h-3 text-gold-500" />
-                Mon-Sat: 10AM - 7PM
+                {SITE.officeHoursDisplay} (Except {SITE.officeClosedDay})
               </span>
             </div>
             <div className="flex items-center justify-between w-full md:w-auto gap-4 md:gap-8">
@@ -100,10 +101,18 @@ const Navbar: React.FC = () => {
                 Paldi, Ahmedabad
               </span>
 
-              <a href={`tel:${SITE.phoneTel}`} className="flex items-center gap-2 hover:text-white transition-colors group">
-                <Phone className="w-3 h-3 text-gold-500 group-hover:animate-pulse" />
-                <span className="font-bold text-white group-hover:text-gold-400">{SITE.phoneDisplay}</span>
-              </a>
+              <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-2">
+                <a href={`tel:${SITE.phoneTel}`} className="flex items-center gap-2 hover:text-white transition-colors group">
+                  <Phone className="w-3 h-3 text-gold-500 group-hover:animate-pulse" />
+                  <span className="font-bold text-white group-hover:text-gold-400">{SITE.phoneDisplay}</span>
+                </a>
+                <a
+                  href={`tel:${SITE.phoneSecondaryTel}`}
+                  className="text-[10px] text-slate-500 hover:text-slate-300 transition-colors sm:border-l sm:border-white/20 sm:pl-2"
+                >
+                  Alt: {SITE.phoneSecondaryDisplay}
+                </a>
+              </div>
               <a href={`mailto:${SITE.email}`} className="hidden sm:flex items-center gap-2 hover:text-white transition-colors">
                 <Mail className="w-3 h-3 text-gold-500" />
                 {SITE.email}
@@ -124,9 +133,9 @@ const Navbar: React.FC = () => {
                 : 'bg-dark-950/50 backdrop-blur-sm py-6'
         }`}
       >
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center">
-            <div className="flex items-center">
+        <div className="max-w-7xl mx-auto px-3 sm:px-5 lg:px-6">
+          <div className="flex items-center gap-4 xl:gap-6">
+            <div className="flex items-center flex-shrink-0">
               <Link 
                 to="/" 
                 onClick={() => setIsOpen(false)}
@@ -137,7 +146,8 @@ const Navbar: React.FC = () => {
             </div>
 
             {/* Desktop Menu */}
-            <div className="hidden lg:flex items-center space-x-6 xl:space-x-10">
+            <div className="hidden lg:flex flex-1 items-center justify-center">
+              <div className="flex items-center gap-5 xl:gap-8 2xl:gap-10 whitespace-nowrap">
               {navLinks.map((link) => (
                 <div 
                   key={link.path} 
@@ -162,18 +172,19 @@ const Navbar: React.FC = () => {
                         isProceduresOpen ? 'opacity-100 translate-y-0 pointer-events-auto' : 'opacity-0 translate-y-4 pointer-events-none'
                       }`}
                     >
-                      <div className="bg-white rounded-xl shadow-[0_20px_80px_rgba(0,0,0,0.4)] border border-slate-100 p-8 w-[800px] grid grid-cols-3 gap-8">
+                      <div className="bg-white rounded-2xl shadow-[0_24px_90px_rgba(0,0,0,0.38)] border border-slate-100 p-10 xl:p-12 w-[980px] xl:w-[1080px] grid grid-cols-3 gap-10 xl:gap-12">
                         {procedures.map((category, idx) => (
-                          <div key={idx} className="space-y-6">
-                            <h3 className="text-[10px] font-black text-gold-500 tracking-[0.2em] uppercase border-b border-gold-100 pb-3">
+                          <div key={idx} className="space-y-7">
+                            <h3 className="text-xs font-black text-gold-500 tracking-[0.2em] uppercase border-b border-gold-100 pb-4">
                               {category.category}
                             </h3>
-                            <ul className="space-y-3">
+                            <ul className="space-y-4">
                               {category.items.map((item, itemIdx) => (
                                 <li key={itemIdx}>
                                   <Link 
                                     to={item.path}
-                                    className="text-dark-800 text-[11px] font-bold hover:text-gold-500 transition-colors block py-1.5 px-3 hover:bg-gold-50 rounded-md"
+                                    onClick={() => setIsProceduresOpen(false)}
+                                    className="text-dark-800 text-base font-bold leading-relaxed hover:text-gold-500 transition-colors block py-2.5 px-3.5 hover:bg-gold-50 rounded-lg"
                                   >
                                     {item.name}
                                   </Link>
@@ -187,16 +198,17 @@ const Navbar: React.FC = () => {
                   )}
                 </div>
               ))}
+              </div>
+            </div>
               <Link
                 to="/contact"
-                className="bg-gold-500 text-white px-6 py-3 rounded-full text-[10px] font-black uppercase tracking-[0.2em] hover:bg-dark-900 transition-all duration-500 shadow-[0_10px_20px_rgba(0,133,84,0.3)] hover:shadow-none transform hover:-translate-y-1"
+                className="hidden lg:inline-flex bg-gold-500 text-white px-6 xl:px-7 py-3 rounded-full text-[10px] font-black uppercase tracking-[0.2em] hover:bg-dark-900 transition-all duration-500 shadow-[0_10px_20px_rgba(0,133,84,0.3)] hover:shadow-none transform hover:-translate-y-1 flex-shrink-0"
               >
-                Book Consultation
+                Contact Clinic
               </Link>
-            </div>
 
             {/* Mobile menu button */}
-            <div className="flex lg:hidden items-center">
+            <div className="flex lg:hidden items-center ml-auto">
               <button
                 onClick={() => setIsOpen(!isOpen)}
                 className="text-white hover:text-gold-500 p-2 focus:outline-none transition-colors"
@@ -269,7 +281,10 @@ const Navbar: React.FC = () => {
                               <Link
                                 key={itemIdx}
                                 to={item.path}
-                                onClick={() => setIsOpen(false)}
+                                onClick={() => {
+                                  setIsProceduresOpen(false);
+                                  setIsOpen(false);
+                                }}
                                 className={`text-[15px] py-1.5 font-semibold transition-colors ${
                                   isActive(item.path) ? 'text-gold-400' : 'text-white/90 hover:text-gold-400'
                                 }`}

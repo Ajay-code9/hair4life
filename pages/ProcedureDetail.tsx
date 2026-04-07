@@ -4,44 +4,44 @@ import { CheckCircle2, ArrowRight, ShieldCheck, Zap, Award, Users } from 'lucide
 
 const procedureData: Record<string, any> = {
   'overview': {
-    title: 'Diagnostic & Care Overview',
-    subtitle: 'The foundation of your hair restoration journey',
-    description: 'Before any treatment, we conduct a thorough analysis of your scalp and hair health to determine the most effective path forward.',
+    title: 'Hair4Life Program Overview',
+    subtitle: 'Complete hair and skin solutions under one roof',
+    description: 'Hair4Life combines diagnosis, prevention, treatment, salon support, and maintenance programs so patients can manage hair and skin concerns through one coordinated care model.',
     image: 'https://images.unsplash.com/photo-1516549655169-df83a0774514?auto=format&fit=crop&q=80&w=1200',
     features: ['Scalp Analysis', 'Hair Density Check', 'Personalized Consultation', 'Medical History Review'],
   },
   'hair-check': {
-    title: 'Advanced Hair Check Solution',
-    subtitle: 'Scientific precision in hair analysis',
-    description: 'Our proprietary hair check system uses high-resolution imaging to track hair growth, density, and health over time with unmatched accuracy.',
+    title: 'H4L® Hair Check',
+    subtitle: 'The modern way to measure and manage hair loss',
+    description: 'H4L® Hair Check helps quantify hair fall, breakage, density, and treatment response, giving patients and doctors a practical baseline before and during therapy.',
     image: 'https://images.unsplash.com/photo-1576091160550-2173bdb999ef?auto=format&fit=crop&q=80&w=1200',
     features: ['High-Res Digital Imaging', 'Growth Tracking', 'Density Mapping', 'Follicle Health Assessment'],
   },
   'laser-therapy': {
-    title: 'Advanced Laser Therapy',
-    subtitle: 'Stimulate growth at the cellular level',
-    description: 'Non-invasive low-level laser therapy (LLLT) designed to increase blood flow to the scalp and stimulate hair follicles for thicker, healthier hair.',
+    title: 'H4L® Laser Therapy',
+    subtitle: 'Low-level light support for pattern hair loss',
+    description: 'Low-level laser therapy is a non-invasive light-based treatment used as part of plans for androgenetic alopecia (pattern balding) in men and women.',
     image: 'https://images.unsplash.com/photo-1519415943484-9fa1873496d4?auto=format&fit=crop&q=80&w=1200',
     features: ['FDA Cleared Technology', 'Painless Treatment', 'No Side Effects', 'Improved Scalp Health'],
   },
   'ultimate': {
-    title: 'Strand-by-Strand the Ultimate ®',
-    subtitle: 'The gold standard in hair restoration',
-    description: 'Our most advanced surgical procedure, offering completely natural-looking results with maximum density and precision.',
+    title: 'H4L® FUI',
+    subtitle: 'Precision implant planning for natural density',
+    description: 'H4L® FUI focuses on natural angle, density distribution, and hairline planning to deliver balanced and realistic restoration outcomes.',
     image: 'https://images.unsplash.com/photo-1622253692010-333f2da6031d?auto=format&fit=crop&q=80&w=1200',
     features: ['Natural Hairline Design', 'Minimal Recovery Time', 'Permanent Results', 'Expert Surgical Team'],
   },
   'cosmetic': {
-    title: 'Strand-by-Strand Cosmetic®',
-    subtitle: 'Instant transformation without surgery',
-    description: 'A non-surgical solution that provides an immediate full head of hair, perfectly matched to your existing hair color, texture, and style.',
+    title: 'H4L® NMHR',
+    subtitle: 'Non-medical hair replacement for immediate coverage',
+    description: 'H4L® NMHR provides cosmetic coverage options for suitable candidates seeking immediate visual improvement without surgery.',
     image: 'https://images.unsplash.com/photo-1560066984-138dadb4c035?auto=format&fit=crop&q=80&w=1200',
     features: ['Immediate Results', 'Non-Surgical', 'Custom Matched', 'Lifestyle Compatible'],
   },
   'flashpoints': {
-    title: 'Hair4Life Flashpoints',
-    subtitle: 'Premium hair extensions and volume',
-    description: 'The world\'s most sophisticated hair extension system, using no glues, waxes, or heat, ensuring zero damage to your natural hair.',
+    title: 'H4L® PRP',
+    subtitle: 'Scalp-support therapy for selected cases',
+    description: 'H4L® PRP is used in selected treatment plans to support scalp environment and complement medical or procedural hair restoration pathways.',
     image: 'https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?auto=format&fit=crop&q=80&w=1200',
     features: ['No Chemicals', 'Reusable Hair', 'Natural Integration', 'Volume & Length'],
   },
@@ -53,16 +53,16 @@ const procedureData: Record<string, any> = {
     features: ['Professional Products', 'Easy to Use', 'Continuous Support', 'Proven Results'],
   },
   'fitness-program': {
-    title: 'Hair & Scalp Fitness Program (H4L-FP)',
+    title: 'Hair & Scalp Fitness Program (H4L®-FP)',
     subtitle: 'Holistic approach to hair health',
     description: 'A structured program combining clinical treatments, nutrition, and specialized products to optimize the "fitness" of your hair and scalp.',
     image: 'https://images.unsplash.com/photo-1512621776951-a57141f2eefd?auto=format&fit=crop&q=80&w=1200',
     features: ['Nutritional Guidance', 'Clinical Scalp Care', 'Exercise for Scalp', 'Progress Monitoring'],
   },
   'supernatural': {
-    title: 'Hair4Life Supernatural',
-    subtitle: 'The ultimate in hair replacement technology',
-    description: 'A breakthrough in non-surgical hair replacement that is virtually undetectable even from inches away, mimicking natural growth patterns.',
+    title: 'H4L® Blend',
+    subtitle: 'Combined strategy for continuity and confidence',
+    description: 'H4L® Blend combines suitable clinical and cosmetic options in one plan for patients needing staged or mixed restoration goals.',
     image: 'https://images.unsplash.com/photo-1595475243692-39282099167a?auto=format&fit=crop&q=80&w=1200',
     features: ['Undetectable Base', 'Natural Growth Pattern', 'Breathable Design', 'Custom Styled'],
   },
@@ -74,11 +74,55 @@ const procedureData: Record<string, any> = {
     features: ['Multi-Tech Approach', 'Priority Support', 'Full Journey Management', 'Guaranteed Excellence'],
   },
   'male-baldness': {
-    title: 'Male Pattern Baldness Solutions',
-    subtitle: 'Targeted treatments for genetic hair loss',
-    description: 'Specialized protocols designed specifically to combat the effects of DHT and genetic thinning in men at all stages of hair loss.',
+    title: 'Skin4Life',
+    subtitle: 'Integrated skin, beard, and aesthetic support',
+    description: 'Skin4Life covers dermatology-oriented services, beard-focused procedures, and supportive aesthetic care to complement full personal wellness goals.',
     image: 'https://images.unsplash.com/photo-1503910368127-b4420c7ff609?auto=format&fit=crop&q=80&w=1200',
     features: ['DHT Blocking', 'Stage-Specific Care', 'Preventative Options', 'Restorative Surgery'],
+  },
+  'women-procedure': {
+    title: 'H4L® Women Procedure',
+    subtitle: 'Specialized solutions for female hair concerns',
+    description: 'Dedicated assessment and treatment pathways for women facing thinning, widening partitions, post-partum hair fall, or hormonal hair-loss patterns.',
+    image: 'https://images.unsplash.com/photo-1544717305-2782549b5136?auto=format&fit=crop&q=80&w=1200',
+    features: ['Female Pattern Analysis', 'Hormonal Hair-Loss Guidance', 'Scalp Nutrition Planning', 'Privacy-Focused Consultations'],
+  },
+  'skincare': {
+    title: 'H4L® Skincare',
+    subtitle: 'Comprehensive skin wellness under expert supervision',
+    description: 'Targeted skincare protocols and clinic-led procedures to improve skin quality, texture balance, and confidence with personalized recommendations.',
+    image: 'https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?auto=format&fit=crop&q=80&w=1200',
+    features: ['Clinical Skin Assessment', 'Texture & Tone Programs', 'Personalized Procedure Plan', 'Post-Treatment Support'],
+  },
+  'products': {
+    title: 'H4L® Products',
+    subtitle: 'Doctor-guided daily care for hair regrowth support',
+    description: 'Hair4Life has a special affiliation with HLCC (Hair Loss Control Clinic) for selected hair-care products and support systems. We offer keratin-based H4L® Fibers for instant cosmetic density in seconds, along with clinic-guided home-care products formulated for men and women dealing with thinning, breakage, and damaged hair. These plans are built to complement in-clinic therapies through a practical multi-therapeutic approach, including options such as iGrow laser support where suitable.',
+    image: 'https://images.unsplash.com/photo-1556228578-0d85b1a4d571?auto=format&fit=crop&q=80&w=1200',
+    features: ['HLCC Affiliate Product Support', 'H4L® Keratin Fibers for Instant Coverage', 'Doctor-Designed Hair Regrowth Essentials', 'Paraben-Free, Nature-Derived Formulations'],
+  },
+  'salon-services': {
+    title: 'H4L® Salon Services',
+    subtitle: 'Styling and care with clinical understanding',
+    description: 'We make every salon session as memorable as it is practical. Our team blends modern styling trends with hair-health-friendly methods so clients can look sharp while maintaining scalp and hair quality.',
+    image: 'https://images.unsplash.com/photo-1595476108010-b4d1f102b1b1?auto=format&fit=crop&q=80&w=1200',
+    features: ['Trend-Aligned Styling', 'Scalp-Safe Service Protocols', 'Hair-Health Friendly Products', 'Personalized Care Experience'],
+    pricingTable: [
+      { no: '1', service: 'H4L® Hair Cut', men: 'Rs. 300', women: 'Rs. 500' },
+      { no: '2', service: 'H4L® Change of Style', men: 'Rs. 350', women: 'Rs. 600' },
+      { no: '3', service: 'H4L® Kids Cut', men: 'Rs. 200', women: 'Rs. 200' },
+      { no: '4', service: 'H4L® Fringes', men: '-', women: 'Rs. 200' },
+      { no: '5', service: 'H4L® Hair Wash with Conditioner', men: 'Rs. 150', women: 'Rs. 250' },
+      { no: '6', service: 'H4L® Hair Spa', men: 'Rs. 500', women: 'Rs. 800' },
+      { no: '7', service: 'H4L® Relaxation Head Oil Massage', men: 'Rs. 300', women: 'Rs. 400' },
+      { no: '8', service: 'H4L® Relaxation Head Oil Massage (with wash)', men: 'Rs. 350', women: 'Rs. 500' },
+      { no: '9', service: 'H4L® Straightening', men: '-', women: 'Rs. 5000' },
+      { no: '10', service: 'H4L® Smoothening', men: '-', women: 'Rs. 6000' },
+      { no: '11', service: 'H4L® Curles', men: '-', women: 'Rs. 600' },
+      { no: '12', service: 'H4L® Temporary Straightening', men: '-', women: 'Rs. 650' },
+      { no: '13', service: 'H4L® Global Color', men: 'Rs. 1200', women: 'Rs. 2500' },
+      { no: '14', service: 'H4L® Streaking', men: '-', women: 'Rs. 175 p/strip' },
+    ],
   }
 };
 
@@ -210,6 +254,43 @@ const ProcedureDetail: React.FC = () => {
             </div>
           </div>
 
+          {data.pricingTable && (
+            <div className="mt-24">
+              <div className="text-center mb-10">
+                <span className="text-gold-500 text-[10px] font-black uppercase tracking-[0.3em] mb-4 block">Salon Menu</span>
+                <h2 className="text-4xl font-black text-white mb-4">H4L® Salon Services Price Guide</h2>
+                <p className="text-slate-400 max-w-3xl mx-auto">
+                  Transparent service pricing for men and women. Final recommendations may vary by hair length, texture, and treatment goals.
+                </p>
+              </div>
+
+              <div className="rounded-3xl border border-slate-200 bg-white overflow-hidden shadow-[0_20px_60px_rgba(0,0,0,0.15)]">
+                <div className="overflow-x-auto">
+                  <table className="w-full min-w-[760px] text-left">
+                    <thead className="bg-slate-50 border-b border-slate-200">
+                      <tr>
+                        <th className="px-6 py-4 text-[11px] uppercase tracking-[0.2em] text-gold-500 font-black">No</th>
+                        <th className="px-6 py-4 text-[11px] uppercase tracking-[0.2em] text-gold-500 font-black">Service</th>
+                        <th className="px-6 py-4 text-[11px] uppercase tracking-[0.2em] text-gold-500 font-black">Men</th>
+                        <th className="px-6 py-4 text-[11px] uppercase tracking-[0.2em] text-gold-500 font-black">Women</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {data.pricingTable.map((row: { no: string; service: string; men: string; women: string }) => (
+                        <tr key={row.no} className="border-b border-slate-100 last:border-0 hover:bg-gold-50/30 transition-colors">
+                          <td className="px-6 py-4 text-slate-900 font-bold">{row.no}</td>
+                          <td className="px-6 py-4 text-slate-900 font-medium">{row.service}</td>
+                          <td className="px-6 py-4 text-slate-700">{row.men}</td>
+                          <td className="px-6 py-4 text-slate-700">{row.women}</td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          )}
+
           {/* Treatment Journey */}
           <div className="mt-32">
             <div className="text-center mb-16">
@@ -224,8 +305,8 @@ const ProcedureDetail: React.FC = () => {
                 { step: "03", title: "Procedure", desc: "Execution of the chosen treatment in our state-of-the-art clinical environment." },
                 { step: "04", title: "Aftercare", desc: "Comprehensive follow-up and maintenance program to ensure long-term success." }
               ].map((item, idx) => (
-                <div key={idx} className="relative group p-8 bg-dark-900/50 border border-white/5 rounded-3xl hover:border-gold-500/30 transition-all">
-                  <div className="text-5xl font-serif text-gold-500/20 mb-6 group-hover:text-gold-500/40 transition-colors">{item.step}</div>
+                <div key={idx} className="relative group p-8 bg-dark-900/50 border border-white/5 rounded-3xl hover:border-gold-400/80 hover:shadow-[0_0_0_1px_rgba(34,197,94,0.35),0_18px_36px_rgba(34,197,94,0.18)] transition-all">
+                  <div className="text-5xl font-serif text-gold-500/25 mb-6 group-hover:text-gold-300 transition-colors">{item.step}</div>
                   <h4 className="text-xl font-black text-white mb-4">{item.title}</h4>
                   <p className="text-sm text-slate-400 leading-relaxed font-light">{item.desc}</p>
                 </div>

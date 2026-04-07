@@ -27,24 +27,12 @@ export interface ConsultationFormPayload {
 }
 
 export function buildConsultationWhatsAppText(data: ConsultationFormPayload): string {
-  const interest = SERVICE_LABELS[data.service] ?? data.service;
-  const lines: string[] = [
-    `*Consultation request — ${SITE.clinicName}*`,
-    '',
-    `Name: ${data.name}`,
-    `Phone: ${data.phone}`,
-    `Email: ${data.email}`,
-    `Interest: ${interest}`,
-  ];
-  if (data.date) lines.push(`Preferred date: ${data.date}`);
-  if (data.message) lines.push(`Notes: ${data.message}`);
-  lines.push('', '_Sent from the website contact form_');
-  return lines.join('\n');
+  return SITE.defaultWhatsAppMessage;
 }
 
 export function buildConsultationMailto(data: ConsultationFormPayload): string {
-  const body = buildConsultationWhatsAppText(data).replace(/\*/g, '');
-  const subject = `Consultation request — ${data.name}`;
+  const body = SITE.defaultWhatsAppMessage;
+  const subject = 'Consultation request';
   return `mailto:${SITE.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
 }
 

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Star, ArrowRight, Microscope, Palette, HeartHandshake } from 'lucide-react';
 import YouTubeVideoCard from '../components/YouTubeVideoCard';
+import VisitingCardSection from '../components/VisitingCardSection';
 import { SITE } from '../config/site';
 import { Testimonial } from '../types';
 import { openWhatsApp, WHATSAPP_NUMBER, WHATSAPP_MESSAGE } from '../components/WhatsAppFloat';
@@ -477,6 +478,11 @@ const Home: React.FC = () => {
           </div>
         </div>
       </section>
+
+      <VisitingCardSection
+        title="Keep Our Visiting Card Handy"
+        subtitle="As this section enters view, the card flips from back to front. Hover to pause auto-flip, and click to flip anytime."
+      />
 
       {/* CTA Section - Full width image */}
       <section className="relative py-48 overflow-hidden">

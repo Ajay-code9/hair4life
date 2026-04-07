@@ -3,16 +3,26 @@
  */
 export const SITE = {
   clinicName: 'Hair4Life Clinic',
-  /** Official logo — file in `public/images/logo.png` (not used as favicon). */
-  logoUrl: '/images/logo.png',
+  /** Official logo — file in `public/images/logo.svg` (not used as favicon). */
+  logoUrl: '/images/logo.svg',
   logoAlt: 'Hair4Life Clinic',
-  email: 'info@hair4lifeclinic.com',
-  phoneDisplay: '+91 90815 44414',
+  email: 'dhirenkansara24@gmail.com',
+  /** Primary contact number */
+  phoneDisplay: '+91 96640 44414',
   /** Use with tel: — digits and leading + */
-  phoneTel: '+919081544414',
+  phoneTel: '+919664044414',
+  /** Secondary number (keep visible in selected places only) */
+  phoneSecondaryDisplay: '+91 90815 44414',
+  phoneSecondaryTel: '+919081544414',
+  addressLine1: 'Mahavir Tower, Semi Basement',
+  addressLine2: 'Near Das Khaman, Opp HP Petrol Pump',
+  addressLine3: 'Paldi Road, Paldi, Ahmedabad - 380007',
+  addressLine4: 'Gujarat, India',
+  officeHoursDisplay: '10:00 AM - 08:00 PM',
+  officeClosedDay: 'Tuesday',
   /** WhatsApp wa.me number — country code + number, no + */
-  whatsappNumber: '919081544414',
-  defaultWhatsAppMessage: 'Hi, I visited your website and would like to enquire about your services.',
+  whatsappNumber: '919664044414',
+  defaultWhatsAppMessage: 'Hello Hair4Life Team, I would like to schedule a consultation.',
   social: {
     facebook: 'https://www.facebook.com/hair4lifeclinic',
     instagram: 'https://www.instagram.com/hair4lifeclinic/',

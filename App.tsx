@@ -10,15 +10,15 @@ import Preloader from './components/Preloader';
 const Home = lazy(() => import('./pages/Home'));
 const Procedures = lazy(() => import('./pages/Procedures'));
 const Contact = lazy(() => import('./pages/Contact'));
-const About = lazy(() => import('./pages/About'));
+const AboutHairLoss = lazy(() => import('./pages/About'));
 const Results = lazy(() => import('./pages/Results'));
-const News = lazy(() => import('./pages/News'));
-const Blog = lazy(() => import('./pages/Blog'));
+const Insights = lazy(() => import('./pages/Insights'));
 const BlogPost = lazy(() => import('./pages/BlogPost'));
 const ProcedureDetail = lazy(() => import('./pages/ProcedureDetail'));
 const NewsArticle = lazy(() => import('./pages/NewsArticle'));
 const Privacy = lazy(() => import('./pages/Privacy'));
 const Terms = lazy(() => import('./pages/Terms'));
+const Team = lazy(() => import('./pages/Team'));
 
 const LoadingSpinner = () => (
   <div className="min-h-screen flex items-center justify-center bg-dark-950">
@@ -111,15 +111,18 @@ const AnimatedRoutes = () => {
     <div key={location.pathname} className="animate-page-enter">
       <Routes location={location}>
         <Route path="/" element={<Home />} />
-        <Route path="/about" element={<About />} />
+        <Route path="/about-hair-loss" element={<AboutHairLoss />} />
+        <Route path="/about" element={<Navigate to="/about-hair-loss" replace />} />
         <Route path="/procedures" element={<Procedures />} />
         <Route path="/procedures/:id" element={<ProcedureDetail />} />
         <Route path="/results" element={<Results />} />
-        <Route path="/news" element={<News />} />
+        <Route path="/insights" element={<Insights />} />
+        <Route path="/news" element={<Navigate to="/insights" replace />} />
         <Route path="/news/:id" element={<NewsArticle />} />
-        <Route path="/blog" element={<Blog />} />
+        <Route path="/blog" element={<Navigate to="/insights" replace />} />
         <Route path="/blog/:slug" element={<BlogPost />} />
         <Route path="/contact" element={<Contact />} />
+        <Route path="/team" element={<Team />} />
         <Route path="/privacy" element={<Privacy />} />
         <Route path="/terms" element={<Terms />} />
         <Route path="*" element={<Navigate to="/" replace />} />

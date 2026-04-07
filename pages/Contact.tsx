@@ -5,6 +5,8 @@ import {
   buildConsultationWhatsAppText,
   openWhatsAppMessage,
 } from '../utils/contactOutreach';
+import { SITE } from '../config/site';
+import VisitingCardSection from '../components/VisitingCardSection';
 
 const Contact: React.FC = () => {
   const [formData, setFormData] = useState({
@@ -60,10 +62,10 @@ const Contact: React.FC = () => {
                  <div>
                     <h3 className="text-white font-bold uppercase tracking-wider text-sm mb-2">Clinic Address</h3>
                     <p className="text-slate-500 font-light">
-                      Semi basement, Mahavir Tower,<br/>
-                      Paldi Rd, near Das Khaman,<br/>
-                      opp. HP Petrol pump, Paldi,<br/>
-                      Ahmedabad, Gujarat 380007
+                      {SITE.addressLine1},<br/>
+                      {SITE.addressLine2},<br/>
+                      {SITE.addressLine3},<br/>
+                      {SITE.addressLine4}
                     </p>
                  </div>
               </div>
@@ -71,14 +73,31 @@ const Contact: React.FC = () => {
                  <span className="text-gold-400 font-serif text-2xl italic">02</span>
                  <div>
                     <h3 className="text-white font-bold uppercase tracking-wider text-sm mb-2">Contact</h3>
-                    <p className="text-slate-500 font-light">+91 90815 44414<br/><span className="text-xs text-slate-600">Call or WhatsApp</span></p>
+                    <p className="text-slate-500 font-light">
+                      <a href={`tel:${SITE.phoneTel}`} className="hover:text-slate-300 transition-colors">{SITE.phoneDisplay}</a>
+                      <br />
+                      <span className="text-xs text-slate-600">Secondary: </span>
+                      <a href={`tel:${SITE.phoneSecondaryTel}`} className="text-xs hover:text-slate-400 transition-colors">{SITE.phoneSecondaryDisplay}</a>
+                      <br />
+                      <span className="text-xs text-slate-600">Call or WhatsApp</span>
+                    </p>
                  </div>
               </div>
               <div className="flex items-start gap-6">
                  <span className="text-gold-400 font-serif text-2xl italic">03</span>
                  <div>
                     <h3 className="text-white font-bold uppercase tracking-wider text-sm mb-2">Digital</h3>
-                    <p className="text-slate-500 font-light">info@hair4lifeclinic.com</p>
+                    <p className="text-slate-500 font-light">{SITE.email}</p>
+                 </div>
+              </div>
+              <div className="flex items-start gap-6">
+                 <span className="text-gold-400 font-serif text-2xl italic">04</span>
+                 <div>
+                    <h3 className="text-white font-bold uppercase tracking-wider text-sm mb-2">Office Hours</h3>
+                    <p className="text-slate-500 font-light">
+                      {SITE.officeHoursDisplay}<br />
+                      Closed on {SITE.officeClosedDay}
+                    </p>
                  </div>
               </div>
             </div>
@@ -237,6 +256,10 @@ const Contact: React.FC = () => {
           </div>
         </div>
       </div>
+
+      <VisitingCardSection
+        title="Take Our Card With You"
+      />
     </div>
   );
 };

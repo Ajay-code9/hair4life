@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { SITE } from '../config/site';
 
 const Terms: React.FC = () => {
   return (
@@ -33,10 +34,10 @@ const Terms: React.FC = () => {
           </p>
           <p>
             <strong className="text-white">Contact:</strong>{' '}
-            <a href="mailto:info@hair4lifeclinic.com" className="text-gold-400 hover:underline">
-              info@hair4lifeclinic.com
+            <a href={`mailto:${SITE.email}`} className="text-gold-400 hover:underline">
+              {SITE.email}
             </a>
-            , +91 90815 44414.
+            , {SITE.phoneDisplay}.
           </p>
           <p className="text-slate-500 text-sm">Last updated: April 2026.</p>
         </div>
