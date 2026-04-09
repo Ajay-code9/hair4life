@@ -7,7 +7,7 @@ interface VisitingCardSectionProps {
 
 const VisitingCardSection: React.FC<VisitingCardSectionProps> = ({
   title = 'Official Visiting Card',
-  subtitle = 'As this section enters view, the card flips from back to front. Hover to pause auto-flip, and click to flip anytime.',
+  subtitle = 'Your pocket introduction to Hair4Life—credentials, services, and how to reach us, presented in one refined digital card.',
 }) => {
   const sectionRef = useRef<HTMLElement>(null);
   const [isFrontVisible, setIsFrontVisible] = useState(false); // Start from backside.
@@ -74,12 +74,15 @@ const VisitingCardSection: React.FC<VisitingCardSectionProps> = ({
         <div className="text-center mb-12">
           <span className="text-gold-400 text-xs font-black uppercase tracking-[0.3em]">Brand Identity</span>
           <h2 className="text-4xl md:text-5xl font-black text-white mt-4 mb-4">{title}</h2>
-          <p className="text-slate-400 text-base md:text-lg font-medium">{subtitle}</p>
+          <p className="text-slate-400 text-base md:text-lg font-medium font-serif italic leading-relaxed max-w-2xl mx-auto">
+            {subtitle}
+          </p>
         </div>
 
-        <div className="max-w-3xl mx-auto">
+        {/* Match visiting card SVG viewBox (~1325×810) — 16:9 was too wide and caused side letterboxing */}
+        <div className="w-full max-w-[min(100%,680px)] sm:max-w-[720px] mx-auto">
           <div
-            className="relative aspect-[16/9] [perspective:1800px] cursor-pointer select-none"
+            className="relative w-full aspect-[1325/810] [perspective:1800px] cursor-pointer select-none"
             onMouseEnter={handleMouseEnter}
             onMouseLeave={handleMouseLeave}
             onMouseMove={handleMouseMove}
@@ -107,7 +110,7 @@ const VisitingCardSection: React.FC<VisitingCardSectionProps> = ({
                 <img
                   src="/images/visitingcard-back.svg"
                   alt="Hair4Life visiting card back side"
-                  className="w-full h-full object-contain rounded-2xl border border-white/15 bg-dark-950 shadow-[0_25px_60px_rgba(0,0,0,0.55)]"
+                  className="w-full h-full object-contain rounded-2xl border border-white/15 shadow-[0_25px_60px_rgba(0,0,0,0.55)]"
                   decoding="async"
                 />
               </div>
@@ -117,7 +120,7 @@ const VisitingCardSection: React.FC<VisitingCardSectionProps> = ({
                 <img
                   src="/images/visitingcard-front.svg"
                   alt="Hair4Life visiting card front side"
-                  className="w-full h-full object-contain rounded-2xl border border-white/15 bg-dark-950 shadow-[0_25px_60px_rgba(0,0,0,0.55)]"
+                  className="w-full h-full object-contain rounded-2xl border border-white/15 shadow-[0_25px_60px_rgba(0,0,0,0.55)]"
                   decoding="async"
                 />
               </div>

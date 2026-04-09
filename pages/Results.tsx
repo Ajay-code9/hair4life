@@ -21,7 +21,7 @@ const results: Result[] = [
     timeframe: '12 Months',
     imageBefore: 'https://images.unsplash.com/photo-1620331713240-ed6d53b52e4c?auto=format&fit=crop&q=80&w=800',
     imageAfter: 'https://images.unsplash.com/photo-1596704017254-9b121068fb31?auto=format&fit=crop&q=80&w=800',
-    description: 'Complete frontal restoration using Sapphire FUE technique to create a dense, natural hairline.'
+    description: 'Complete frontal restoration using H4L® FUE (Follicular Unit Extraction) sapphire technique to create a dense, natural hairline.'
   },
   {
     id: '2',

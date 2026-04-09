@@ -19,4 +19,10 @@ export interface Doctor {
   name: string;
   specialty: string;
   imageUrl: string;
+  /** Short hook under the name */
+  tagline?: string;
+  /** Main biography paragraphs */
+  bio?: string[];
+  qualifications?: string;
+  achievements?: string[];
 }

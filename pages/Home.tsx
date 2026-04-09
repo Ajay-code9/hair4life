@@ -1,8 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Star, ArrowRight, Microscope, Palette, HeartHandshake } from 'lucide-react';
+import { Star, ArrowRight, Microscope, Palette, HeartHandshake, Users, Award, Target } from 'lucide-react';
+import { motion } from 'motion/react';
 import YouTubeVideoCard from '../components/YouTubeVideoCard';
 import VisitingCardSection from '../components/VisitingCardSection';
+import GalleryMarqueeStrip from '../components/GalleryMarqueeStrip';
 import { SITE } from '../config/site';
 import { Testimonial } from '../types';
 import { openWhatsApp, WHATSAPP_NUMBER, WHATSAPP_MESSAGE } from '../components/WhatsAppFloat';
@@ -10,24 +12,24 @@ import { openWhatsApp, WHATSAPP_NUMBER, WHATSAPP_MESSAGE } from '../components/W
 const testimonials: Testimonial[] = [
   {
     id: '1',
-    name: 'Anonymous Patient',
+    name: 'Rahul Shah',
     role: 'Hair Restoration',
-    quote: "I was struggling with hair loss for years and tried many treatments with no results. Hair4Life gave me hope again. The treatment was explained clearly and the results were natural.",
-    imageUrl: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=200&h=200'
+    quote: "For almost 3 years I was trying different options, but nothing gave consistent results. At Hair4Life, the guidance was practical and honest. My hairline now looks natural and I feel much more confident.",
+    imageUrl: 'https://images.unsplash.com/photo-1607346256330-dee7af15f7c5?auto=format&fit=crop&q=80&w=200&h=200'
   },
   {
     id: '2',
-    name: 'Verified Client',
+    name: 'Priya Mehta',
     role: 'FUI® Transplant',
-    quote: "The staff at Hair4Life is very professional and supportive. I felt comfortable throughout the treatment process, and the improvement in my hair density is noticeable.",
-    imageUrl: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&q=80&w=200&h=200'
+    quote: "Team bahut supportive tha from consultation to follow-up. Procedure smooth raha and recovery bhi expected time mein ho gayi. Density improvement clearly visible hai, especially at the front.",
+    imageUrl: 'https://images.unsplash.com/photo-1593529467220-9d721ceb9a78?auto=format&fit=crop&q=80&w=200&h=200'
   },
   {
     id: '3',
-    name: 'Consultation Client',
+    name: 'Amit Patel',
     role: 'Diagnostic Service',
-    quote: "I appreciated the honest consultation. They did not push unnecessary treatments and guided me properly based on my condition.",
-    imageUrl: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&q=80&w=200&h=200'
+    quote: "Mujhe sabse achha laga ki consultation bilkul genuine tha. Unhone unnecessary treatment suggest nahi kiya and meri condition ke hisaab se clear plan diya. That built my trust immediately.",
+    imageUrl: 'https://images.unsplash.com/photo-1581579438747-1dc8d17bbce4?auto=format&fit=crop&q=80&w=200&h=200'
   }
 ];
 
@@ -37,7 +39,7 @@ const coreValues = [
     title: 'Precision',
     subtitle: 'Sapphire Micro-Grafting',
     description: 'Every follicle is placed with mathematical exactness to mimic natural growth patterns.',
-    image: 'https://images.unsplash.com/photo-1551076805-e1869033e561?auto=format&fit=crop&q=80&w=1200',
+    image: '/images/bgimages/prcesion.jpg',
     icon: <Microscope className="w-6 h-6" />
   },
   {
@@ -45,7 +47,7 @@ const coreValues = [
     title: 'Artistry',
     subtitle: 'Facial Framing Design',
     description: 'We don’t just fill gaps; we sculpt a hairline that complements your unique facial structure.',
-    image: 'https://images.unsplash.com/photo-1566083043913-5097522c2de3?auto=format&fit=crop&q=80&w=1200',
+    image: '/images/bgimages/artistry.jpg',
     icon: <Palette className="w-6 h-6" />
   },
   {
@@ -53,7 +55,7 @@ const coreValues = [
     title: 'Comfort',
     subtitle: 'Painless Experience',
     description: 'A sanctuary of care where advanced anesthesia ensures you relax throughout the procedure.',
-    image: 'https://images.unsplash.com/photo-1629909613654-28e377c37b09?auto=format&fit=crop&q=80&w=1200',
+    image: '/images/bgimages/anesthesia.jpg',
     icon: <HeartHandshake className="w-6 h-6" />
   }
 ];
@@ -71,10 +73,80 @@ const homeStoryVideos = [
 
 const Home: React.FC = () => {
   const [isVisible, setIsVisible] = useState(false);
+  const [mobileCoreStep, setMobileCoreStep] = useState(0);
+  const mobileCoreRef = useRef<HTMLDivElement>(null);
+  const touchStartYRef = useRef<number | null>(null);
+  const mobileCoreStepLockUntilRef = useRef(0);
 
   useEffect(() => {
     setIsVisible(true);
   }, []);
+
+  useEffect(() => {
+    const isMobile = () => window.matchMedia('(max-width: 1023px)').matches;
+
+    const isCoreSectionActive = () => {
+      const node = mobileCoreRef.current;
+      if (!node) return false;
+      const rect = node.getBoundingClientRect();
+      return rect.top <= 120 && rect.bottom >= window.innerHeight * 0.55;
+    };
+
+    const stepByDelta = (deltaY: number): boolean => {
+      if (!isMobile() || !isCoreSectionActive()) return false;
+      if (Math.abs(deltaY) < 20) return false;
+      const now = Date.now();
+      if (now < mobileCoreStepLockUntilRef.current) return false;
+
+      if (deltaY > 0 && mobileCoreStep < 3) {
+        setMobileCoreStep((prev) => Math.min(prev + 1, 3));
+        mobileCoreStepLockUntilRef.current = now + 420;
+        return true;
+      }
+      if (deltaY < 0 && mobileCoreStep > 0) {
+        setMobileCoreStep((prev) => Math.max(prev - 1, 0));
+        mobileCoreStepLockUntilRef.current = now + 420;
+        return true;
+      }
+      return false;
+    };
+
+    const onWheel = (e: WheelEvent) => {
+      const handled = stepByDelta(e.deltaY);
+      if (handled) e.preventDefault();
+    };
+
+    const onTouchStart = (e: TouchEvent) => {
+      touchStartYRef.current = e.touches[0]?.clientY ?? null;
+    };
+
+    const onTouchMove = (e: TouchEvent) => {
+      if (touchStartYRef.current == null) return;
+      const currentY = e.touches[0]?.clientY ?? touchStartYRef.current;
+      const delta = touchStartYRef.current - currentY;
+      const handled = stepByDelta(delta);
+      if (handled) {
+        e.preventDefault();
+        touchStartYRef.current = currentY;
+      }
+    };
+
+    const onTouchEnd = () => {
+      touchStartYRef.current = null;
+    };
+
+    window.addEventListener('wheel', onWheel, { passive: false });
+    window.addEventListener('touchstart', onTouchStart, { passive: true });
+    window.addEventListener('touchmove', onTouchMove, { passive: false });
+    window.addEventListener('touchend', onTouchEnd, { passive: true });
+
+    return () => {
+      window.removeEventListener('wheel', onWheel);
+      window.removeEventListener('touchstart', onTouchStart);
+      window.removeEventListener('touchmove', onTouchMove);
+      window.removeEventListener('touchend', onTouchEnd);
+    };
+  }, [mobileCoreStep]);
 
   return (
     <div className="bg-dark-950 text-slate-300 overflow-x-hidden">
@@ -83,8 +155,8 @@ const Home: React.FC = () => {
         {/* Background Image with Slow Zoom & Overlay */}
         <div className="absolute inset-0 z-0 overflow-hidden">
            <img 
-            src="https://images.unsplash.com/photo-1521590832167-7bcbfaa6381f?auto=format&fit=crop&q=80&w=2560" 
-            alt="Advanced Hair Restoration" 
+            src="/images/bgimages/homehero-bg.jpg" 
+            alt="Hair4Life clinic" 
             className="w-full h-full object-cover opacity-70 animate-slow-zoom"
             referrerPolicy="no-referrer"
           />
@@ -196,45 +268,62 @@ const Home: React.FC = () => {
           ))}
         </div>
 
-        {/* Mobile Stacked Cards - Sticky Stacking Effect */}
-        <div className="lg:hidden flex flex-col">
-          {coreValues.map((value, index) => (
-             <div 
-               key={value.id} 
-               className="sticky top-0 h-[100dvh] flex flex-col justify-end overflow-hidden shadow-[0_-20px_40px_rgba(0,0,0,0.8)]"
-               style={{ zIndex: index + 1 }}
-             >
-                {/* Background Image */}
-                <div className="absolute inset-0 w-full h-full">
-                  <img 
-                    src={value.image} 
-                    alt={value.title} 
-                    className="w-full h-full object-cover opacity-60 grayscale"
-                  />
-                  {/* Darker overlays for better text readability on mobile */}
-                  <div className="absolute inset-0 bg-dark-950/40"></div>
-                  <div className="absolute inset-0 bg-gradient-to-t from-dark-950 via-dark-950/60 to-transparent"></div>
-                </div>
-                
-                {/* Content */}
-                <div className="relative w-full p-8 pb-32 z-10">
-                   <div className="flex items-center gap-4 mb-6 text-gold-400">
+        {/* Mobile Scroll-Stepped Stack */}
+        <div ref={mobileCoreRef} className="lg:hidden relative h-[110dvh]">
+          <div className="sticky top-0 h-[100dvh] overflow-hidden bg-dark-950">
+            {coreValues.map((value, index) => {
+              const activeIndex = Math.max(mobileCoreStep - 1, 0);
+              const isActive = index === activeIndex;
+              const isPassed = index < activeIndex;
+
+              const baseOffset = index * 7;
+              const collapsedY = 14 + index * 8;
+              const activeY = index === 0 ? 0 : 6;
+              const y = mobileCoreStep === 0 ? collapsedY : isActive ? activeY : isPassed ? -22 : 20 + baseOffset;
+              const scale = mobileCoreStep === 0 ? 0.94 - index * 0.02 : isActive ? 1 : isPassed ? 0.965 : 0.93;
+              const cardOpacity = mobileCoreStep === 0 ? 0.98 : 1;
+              const contentOpacity = mobileCoreStep === 0 ? (index === 0 ? 1 : 0.18) : isActive ? 1 : isPassed ? 0.06 : 0.14;
+
+              return (
+                <div
+                  key={value.id}
+                  className="absolute inset-0 transition-[transform,opacity] duration-1000 ease-[cubic-bezier(0.16,1,0.3,1)] shadow-[0_-20px_40px_rgba(0,0,0,0.8)]"
+                  style={{
+                    zIndex: index + 1 + (isActive ? 8 : 0),
+                    transform: `translateY(${y}dvh) scale(${scale})`,
+                    opacity: cardOpacity,
+                  }}
+                >
+                  <div className="absolute inset-0 w-full h-full">
+                    <img
+                      src={value.image}
+                      alt={value.title}
+                      className="w-full h-full object-cover opacity-100"
+                    />
+                    <div className="absolute inset-0 bg-dark-950/60" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-dark-950 via-dark-950/82 to-dark-950/28" />
+                  </div>
+
+                  <div
+                    className="relative w-full p-8 pb-32 z-10 h-full flex flex-col justify-end transition-opacity duration-700"
+                    style={{ opacity: contentOpacity }}
+                  >
+                    <div className="flex items-center gap-4 mb-6 text-gold-400">
                       <div className="p-3 bg-gold-500/10 rounded-full border border-gold-500/20 backdrop-blur-sm">
                         {value.icon}
                       </div>
                       <span className="text-xs font-bold uppercase tracking-[0.25em]">{value.subtitle}</span>
-                   </div>
-                   <h3 className="font-serif text-6xl text-white mb-6 leading-tight">{value.title}</h3>
-                   <p className="text-white text-lg font-medium leading-relaxed max-w-md opacity-90">{value.description}</p>
-                </div>
+                    </div>
+                    <h3 className="font-serif text-6xl text-white mb-6 leading-tight">{value.title}</h3>
+                    <p className="text-white text-lg font-medium leading-relaxed max-w-md opacity-90">{value.description}</p>
+                  </div>
 
-                {/* Large Index Number */}
-                <div className="absolute top-24 right-8 text-white/5 font-serif text-8xl font-bold">0{index + 1}</div>
-                
-                {/* Decorative Line at Top to emphasize the overlap */}
-                <div className="absolute top-0 left-0 w-full h-[1px] bg-white/10"></div>
-             </div>
-          ))}
+                  <div className="absolute top-24 right-8 text-white/10 font-serif text-8xl font-bold">0{index + 1}</div>
+                  <div className="absolute top-0 left-0 w-full h-[1px] bg-white/10" />
+                </div>
+              );
+            })}
+          </div>
         </div>
       </section>
 
@@ -249,8 +338,8 @@ const Home: React.FC = () => {
             <div className="relative group">
               <div className="aspect-[4/5] overflow-hidden rounded-sm relative z-10">
                 <img 
-                  src="https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?auto=format&fit=crop&q=80&w=1200" 
-                  alt="Surgeon at work" 
+                  src="/images/bgimages/Philosophy.jpg" 
+                  alt="Hair4Life clinic — our philosophy" 
                   className="w-full h-full object-cover transition-transform duration-[2s] ease-out group-hover:scale-110"
                 />
                 <div className="absolute inset-0 bg-gold-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-700 mix-blend-overlay"></div>
@@ -311,6 +400,8 @@ const Home: React.FC = () => {
         </div>
       </section>
 
+      <GalleryMarqueeStrip label="Moments & milestones" className="my-4" />
+
       {/* CLINIC EXPERIENCE - LUXURY SHOWCASE */}
       <section className="py-32 bg-dark-950 relative overflow-hidden">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -319,18 +410,18 @@ const Home: React.FC = () => {
               <div className="grid grid-cols-2 gap-4">
                 <div className="space-y-4">
                   <div className="aspect-[4/5] rounded-3xl overflow-hidden border border-white/5">
-                    <img src="https://images.unsplash.com/photo-1629909613654-28e377c37b09?auto=format&fit=crop&q=80&w=800" alt="Clinic Interior" className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-1000" referrerPolicy="no-referrer" />
+                    <img src="https://images.unsplash.com/photo-1629909613654-28e377c37b09?auto=format&fit=crop&q=80&w=800" alt="Clinic Interior" className="w-full h-full object-cover grayscale-0 lg:grayscale lg:hover:grayscale-0 max-lg:brightness-[1.06] max-lg:saturate-[1.08] transition-all duration-1000" referrerPolicy="no-referrer" />
                   </div>
                   <div className="aspect-square rounded-3xl overflow-hidden border border-white/5">
-                    <img src="https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?auto=format&fit=crop&q=80&w=800" alt="Medical Equipment" className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-1000" referrerPolicy="no-referrer" />
+                    <img src="https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?auto=format&fit=crop&q=80&w=800" alt="Medical Equipment" className="w-full h-full object-cover grayscale-0 lg:grayscale lg:hover:grayscale-0 max-lg:brightness-[1.06] max-lg:saturate-[1.08] transition-all duration-1000" referrerPolicy="no-referrer" />
                   </div>
                 </div>
                 <div className="space-y-4 pt-12">
                   <div className="aspect-square rounded-3xl overflow-hidden border border-white/5">
-                    <img src="https://images.unsplash.com/photo-1576091160550-2173dba999ef?auto=format&fit=crop&q=80&w=800" alt="Consultation" className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-1000" referrerPolicy="no-referrer" />
+                    <img src="/images/bgimages/docwriting.jpg" alt="Consultation" className="w-full h-full object-cover grayscale-0 lg:grayscale lg:hover:grayscale-0 max-lg:brightness-[1.06] max-lg:saturate-[1.08] transition-all duration-1000" referrerPolicy="no-referrer" />
                   </div>
                   <div className="aspect-[4/5] rounded-3xl overflow-hidden border border-white/5">
-                    <img src="https://images.unsplash.com/photo-1516549655169-df83a0774514?auto=format&fit=crop&q=80&w=800" alt="Treatment" className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-1000" referrerPolicy="no-referrer" />
+                    <img src="https://images.unsplash.com/photo-1516549655169-df83a0774514?auto=format&fit=crop&q=80&w=800" alt="Treatment" className="w-full h-full object-cover grayscale-0 lg:grayscale lg:hover:grayscale-0 max-lg:brightness-[1.06] max-lg:saturate-[1.08] transition-all duration-1000" referrerPolicy="no-referrer" />
                   </div>
                 </div>
               </div>
@@ -407,21 +498,82 @@ const Home: React.FC = () => {
         </div>
       </section>
 
-      {/* Stats Section - Minimalist */}
-      <section className="py-24 border-y border-white/5 bg-dark-950">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-2 md:grid-cols-4 divide-x divide-white/5">
+      {/* Stats — highlighted metrics */}
+      <section className="relative py-28 md:py-32 border-y border-white/5 bg-dark-950 overflow-hidden">
+        <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(to_right,#ffffff05_1px,transparent_1px),linear-gradient(to_bottom,#ffffff05_1px,transparent_1px)] bg-[size:48px_48px] opacity-40" />
+        <div className="pointer-events-none absolute -top-24 right-0 h-72 w-72 rounded-full bg-gold-500/10 blur-[100px]" />
+        <div className="pointer-events-none absolute bottom-0 left-1/4 h-48 w-96 rounded-full bg-gold-500/5 blur-[80px]" />
+
+        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center max-w-2xl mx-auto mb-14 md:mb-16">
+            <span className="inline-flex items-center gap-2 text-gold-400 text-[10px] font-black uppercase tracking-[0.35em] mb-4">
+              <span className="relative flex h-2 w-2">
+                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-gold-400 opacity-40" />
+                <span className="relative inline-flex h-2 w-2 rounded-full bg-gold-500 ring-2 ring-gold-500/30" />
+              </span>
+              Live trust signals
+            </span>
+            <h2 className="font-serif text-3xl md:text-5xl text-white font-medium tracking-tight">
+              Numbers that reflect real care
+            </h2>
+            <p className="mt-4 text-slate-400 text-sm md:text-base font-medium leading-relaxed">
+              A quick snapshot of the community we serve and the standards we hold ourselves to.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 md:gap-6">
             {[
-              { label: "Satisfied Clients", value: "5000+" },
-              { label: "Google Rating", value: "4.9" },
-              { label: "Years Experience", value: "15+" },
-              { label: "Success Rate", value: "99%" }
-            ].map((stat, idx) => (
-              <div key={idx} className="group cursor-default text-center px-4 py-8 hover:bg-white/5 transition-colors duration-500">
-                <div className="font-serif text-4xl md:text-6xl text-white mb-4 group-hover:text-gold-400 transition-colors duration-500">{stat.value}</div>
-                <div className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-500">{stat.label}</div>
-              </div>
-            ))}
+              {
+                icon: Users,
+                label: 'Satisfied Clients',
+                value: '5000+',
+                hint: 'Lives touched through consultations & care',
+              },
+              {
+                icon: Star,
+                label: 'Google Rating',
+                value: '4.9',
+                hint: 'From reviews across our listings',
+              },
+              {
+                icon: Award,
+                label: 'Years Experience',
+                value: '15+',
+                hint: 'Dedicated to hair restoration excellence',
+              },
+              {
+                icon: Target,
+                label: 'Success Rate',
+                value: '99%',
+                hint: 'Commitment to planned outcomes',
+              },
+            ].map((stat, idx) => {
+              const StatIcon = stat.icon;
+              return (
+              <motion.div
+                key={stat.label}
+                initial={{ opacity: 0, y: 24 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: '-40px' }}
+                transition={{ duration: 0.5, delay: idx * 0.08, ease: [0.16, 1, 0.3, 1] }}
+                className="group relative rounded-2xl border border-white/10 bg-gradient-to-br from-white/[0.06] via-dark-900/40 to-dark-950/80 p-6 md:p-8 text-center sm:text-left shadow-[0_20px_50px_rgba(0,0,0,0.25)] hover:border-gold-500/35 hover:shadow-[0_24px_60px_rgba(0,133,84,0.12)] hover:-translate-y-1 transition-all duration-500"
+              >
+                <div className="absolute top-0 right-0 h-20 w-20 rounded-bl-[100%] bg-gold-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                <div className="inline-flex rounded-xl bg-gold-500/15 p-3 text-gold-400 ring-1 ring-gold-500/20 mb-5 mx-auto sm:mx-0 group-hover:bg-gold-500/25 group-hover:scale-105 transition-all duration-500">
+                  <StatIcon className="h-6 w-6 md:h-7 md:w-7" strokeWidth={1.75} aria-hidden />
+                </div>
+                <div className="font-serif text-4xl md:text-5xl lg:text-[3.25rem] leading-none text-transparent bg-clip-text bg-gradient-to-br from-white via-white to-gold-200/90 mb-2 group-hover:from-gold-100 group-hover:via-white group-hover:to-gold-300 transition-all duration-500">
+                  {stat.value}
+                </div>
+                <div className="text-[10px] md:text-[11px] font-black uppercase tracking-[0.2em] text-gold-500/90 mb-2">
+                  {stat.label}
+                </div>
+                <p className="text-xs text-slate-500 leading-relaxed font-medium group-hover:text-slate-400 transition-colors">
+                  {stat.hint}
+                </p>
+              </motion.div>
+              );
+            })}
           </div>
         </div>
       </section>
@@ -479,10 +631,7 @@ const Home: React.FC = () => {
         </div>
       </section>
 
-      <VisitingCardSection
-        title="Keep Our Visiting Card Handy"
-        subtitle="As this section enters view, the card flips from back to front. Hover to pause auto-flip, and click to flip anytime."
-      />
+      <VisitingCardSection title="Keep Our Visiting Card Handy" />
 
       {/* CTA Section - Full width image */}
       <section className="relative py-48 overflow-hidden">

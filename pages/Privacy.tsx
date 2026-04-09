@@ -34,7 +34,7 @@ const Privacy: React.FC = () => {
             <a href={`mailto:${SITE.email}`} className="text-gold-400 hover:underline">
               {SITE.email}
             </a>{' '}
-            or call {SITE.phoneDisplay}.
+            or call {SITE.phoneDisplay} / {SITE.phoneSecondaryDisplay}.
           </p>
           <p className="text-slate-500 text-sm">Last updated: April 2026.</p>
         </div>

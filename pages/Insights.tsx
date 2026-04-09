@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { Calendar, ArrowRight, Clock, User } from 'lucide-react';
 import { blogPosts, featuredBlogPost, newsItems } from '../data/articles';
+import GalleryMarqueeStrip from '../components/GalleryMarqueeStrip';
 
 const Insights: React.FC = () => {
   return (
@@ -16,6 +17,8 @@ const Insights: React.FC = () => {
             Stay informed with Hair4Life clinic news, announcements, and educational articles from our clinical team.
           </p>
         </div>
+
+        <GalleryMarqueeStrip label="Moments & milestones" className="my-12 md:my-16" />
 
         {/* News strip */}
         <section className="mb-24">

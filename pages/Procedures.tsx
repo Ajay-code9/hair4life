@@ -16,7 +16,7 @@ const procedureCategories = [
   },
   {
     title: "Restoration Programs",
-    description: "Core clinical and cosmetic programs designed for density, continuity, and natural integration.",
+    description: "Core clinical and cosmetic programs including H4L® FUE (Follicular Unit Extraction), H4L® FUI (Follicular Unit Implantation), and H4L® NMHR (Non Medical Hair Replacement).",
     icon: <Zap className="w-8 h-8" />,
     image: "https://images.unsplash.com/photo-1620331713240-ed6d53b52e4c?auto=format&fit=crop&q=80&w=800",
     items: [
@@ -55,7 +55,9 @@ const Procedures: React.FC = () => {
             Discover our comprehensive range of hair restoration and scalp care solutions, tailored to your individual needs.
           </p>
         </div>
+      </div>
 
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="space-y-32">
           {procedureCategories.map((category, idx) => (
             <div key={idx} className="relative">

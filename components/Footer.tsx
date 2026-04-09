@@ -111,9 +111,14 @@ const Footer: React.FC = () => {
                 <div className="w-8 h-8 bg-gold-500/10 rounded-lg flex items-center justify-center flex-shrink-0 group-hover:bg-gold-500/20 transition-all">
                   <Phone className="h-4 w-4 text-gold-500" />
                 </div>
-                <a href={`tel:${SITE.phoneTel}`} className="group-hover:text-white transition-colors hover:text-gold-400">
-                  {SITE.phoneDisplay}
-                </a>
+                <div className="leading-relaxed">
+                  <a href={`tel:${SITE.phoneTel}`} className="block group-hover:text-white transition-colors hover:text-gold-400">
+                    {SITE.phoneDisplay}
+                  </a>
+                  <a href={`tel:${SITE.phoneSecondaryTel}`} className="block text-xs text-slate-400 hover:text-gold-400 transition-colors">
+                    {SITE.phoneSecondaryDisplay}
+                  </a>
+                </div>
               </li>
               <li className="flex items-center gap-4 group">
                 <div className="w-8 h-8 bg-gold-500/10 rounded-lg flex items-center justify-center flex-shrink-0 group-hover:bg-gold-500/20 transition-all">

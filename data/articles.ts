@@ -48,7 +48,7 @@ export const blogPosts: BlogPost[] = [
     excerpt:
       'The first weeks after restoration matter. Here is how sleep position, washing, sun exposure, and follow-ups support healing and growth.',
     image:
-      'https://images.unsplash.com/photo-1576091160550-2173bdb999ef?auto=format&fit=crop&q=80&w=800',
+      '/images/bgimages/article3.jpg',
     body: [
       'Follow the written aftercare sheet we provide. Gentle washing protects grafts; scratching or rubbing does not.',
       'Avoid heavy exercise, steam rooms, and direct sun on the scalp until your doctor clears you. Hydration and prescribed medication should be taken on schedule.',
@@ -65,7 +65,7 @@ export const blogPosts: BlogPost[] = [
     excerpt:
       'How a structured treatment plan and realistic expectations helped one patient feel like himself again at work and at home.',
     image:
-      'https://images.unsplash.com/photo-1503910368127-b4420c7ff609?auto=format&fit=crop&q=80&w=800',
+      '/images/bgimages/article4.jpg',
     body: [
       'Every patient’s story is different. In this case, combining a tailored surgical plan with ongoing scalp care produced a natural hairline and stable density over time.',
       'We focus on honest timelines: you will see change gradually, not overnight. That transparency builds trust.',
@@ -84,7 +84,7 @@ export const featuredBlogPost: BlogPost = {
   excerpt:
     'How refined extraction, custom hairline design, and strict theatre protocols work together for natural density and predictable recovery.',
   image:
-    'https://images.unsplash.com/photo-1512621776951-a57141f2eefd?auto=format&fit=crop&q=80&w=1200',
+    '/images/bgimages/Featured-article.svg',
   body: [
     'Modern restoration is not one device or slogan—it is planning. We study your face shape, age-appropriate hairline, and donor capacity before any surgery day.',
     'Stereo magnification, controlled graft handling, and experienced technicians reduce transection and support graft survival.',
@@ -116,7 +116,7 @@ export const newsItems: NewsItem[] = [
     excerpt:
       'Our clinic has added an updated low-level laser platform for eligible patients as part of a broader medical hair-loss plan.',
     image:
-      'https://images.unsplash.com/photo-1519415943484-9fa1873496d4?auto=format&fit=crop&q=80&w=800',
+      '/images/bgimages/article2.jpg',
     body: [
       'Laser therapy can support certain types of thinning when used under supervision—not as a standalone miracle fix.',
       'During consultation we will tell you if you are a suitable candidate and how it fits with other treatments.',

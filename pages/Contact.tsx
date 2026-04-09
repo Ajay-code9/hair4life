@@ -43,7 +43,6 @@ const Contact: React.FC = () => {
       </div>
 
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-40 pb-20">
-        
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-16">
           
           {/* Left Column: Info */}
