@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Star, ArrowRight, Microscope, Palette, HeartHandshake, Users, Award, Target } from 'lucide-react';
 import { motion } from 'motion/react';
@@ -73,80 +73,31 @@ const homeStoryVideos = [
 
 const Home: React.FC = () => {
   const [isVisible, setIsVisible] = useState(false);
-  const [mobileCoreStep, setMobileCoreStep] = useState(0);
-  const mobileCoreRef = useRef<HTMLDivElement>(null);
-  const touchStartYRef = useRef<number | null>(null);
-  const mobileCoreStepLockUntilRef = useRef(0);
 
   useEffect(() => {
     setIsVisible(true);
   }, []);
 
+  /** Mobile: let Precision → Artistry → Comfort each fill the viewport; native scroll + snap */
   useEffect(() => {
-    const isMobile = () => window.matchMedia('(max-width: 1023px)').matches;
-
-    const isCoreSectionActive = () => {
-      const node = mobileCoreRef.current;
-      if (!node) return false;
-      const rect = node.getBoundingClientRect();
-      return rect.top <= 120 && rect.bottom >= window.innerHeight * 0.55;
-    };
-
-    const stepByDelta = (deltaY: number): boolean => {
-      if (!isMobile() || !isCoreSectionActive()) return false;
-      if (Math.abs(deltaY) < 20) return false;
-      const now = Date.now();
-      if (now < mobileCoreStepLockUntilRef.current) return false;
-
-      if (deltaY > 0 && mobileCoreStep < 3) {
-        setMobileCoreStep((prev) => Math.min(prev + 1, 3));
-        mobileCoreStepLockUntilRef.current = now + 420;
-        return true;
-      }
-      if (deltaY < 0 && mobileCoreStep > 0) {
-        setMobileCoreStep((prev) => Math.max(prev - 1, 0));
-        mobileCoreStepLockUntilRef.current = now + 420;
-        return true;
-      }
-      return false;
-    };
-
-    const onWheel = (e: WheelEvent) => {
-      const handled = stepByDelta(e.deltaY);
-      if (handled) e.preventDefault();
-    };
-
-    const onTouchStart = (e: TouchEvent) => {
-      touchStartYRef.current = e.touches[0]?.clientY ?? null;
-    };
-
-    const onTouchMove = (e: TouchEvent) => {
-      if (touchStartYRef.current == null) return;
-      const currentY = e.touches[0]?.clientY ?? touchStartYRef.current;
-      const delta = touchStartYRef.current - currentY;
-      const handled = stepByDelta(delta);
-      if (handled) {
-        e.preventDefault();
-        touchStartYRef.current = currentY;
+    const mq = window.matchMedia('(max-width: 1023px)');
+    const apply = () => {
+      if (mq.matches) {
+        document.documentElement.style.scrollSnapType = 'y proximity';
+        document.documentElement.style.scrollPaddingTop = '4.5rem';
+      } else {
+        document.documentElement.style.scrollSnapType = '';
+        document.documentElement.style.scrollPaddingTop = '';
       }
     };
-
-    const onTouchEnd = () => {
-      touchStartYRef.current = null;
-    };
-
-    window.addEventListener('wheel', onWheel, { passive: false });
-    window.addEventListener('touchstart', onTouchStart, { passive: true });
-    window.addEventListener('touchmove', onTouchMove, { passive: false });
-    window.addEventListener('touchend', onTouchEnd, { passive: true });
-
+    apply();
+    mq.addEventListener('change', apply);
     return () => {
-      window.removeEventListener('wheel', onWheel);
-      window.removeEventListener('touchstart', onTouchStart);
-      window.removeEventListener('touchmove', onTouchMove);
-      window.removeEventListener('touchend', onTouchEnd);
+      mq.removeEventListener('change', apply);
+      document.documentElement.style.scrollSnapType = '';
+      document.documentElement.style.scrollPaddingTop = '';
     };
-  }, [mobileCoreStep]);
+  }, []);
 
   return (
     <div className="bg-dark-950 text-slate-300 overflow-x-hidden">
@@ -268,62 +219,48 @@ const Home: React.FC = () => {
           ))}
         </div>
 
-        {/* Mobile Scroll-Stepped Stack */}
-        <div ref={mobileCoreRef} className="lg:hidden relative h-[110dvh]">
-          <div className="sticky top-0 h-[100dvh] overflow-hidden bg-dark-950">
-            {coreValues.map((value, index) => {
-              const activeIndex = Math.max(mobileCoreStep - 1, 0);
-              const isActive = index === activeIndex;
-              const isPassed = index < activeIndex;
+        {/* Mobile: one full viewport per value — native scroll + snap; then normal page scroll */}
+        <div className="lg:hidden">
+          {coreValues.map((value, index) => (
+            <motion.div
+              key={value.id}
+              initial={false}
+              className="relative min-h-[100svh] min-h-[100dvh] w-full overflow-hidden snap-start snap-always shadow-[0_-12px_40px_rgba(0,0,0,0.45)]"
+            >
+              <div className="absolute inset-0">
+                <img
+                  src={value.image}
+                  alt={value.title}
+                  className="h-full w-full object-cover"
+                />
+                <div className="absolute inset-0 bg-dark-950/60" />
+                <div className="absolute inset-0 bg-gradient-to-t from-dark-950 via-dark-950/82 to-dark-950/28" />
+              </div>
 
-              const baseOffset = index * 7;
-              const collapsedY = 14 + index * 8;
-              const activeY = index === 0 ? 0 : 6;
-              const y = mobileCoreStep === 0 ? collapsedY : isActive ? activeY : isPassed ? -22 : 20 + baseOffset;
-              const scale = mobileCoreStep === 0 ? 0.94 - index * 0.02 : isActive ? 1 : isPassed ? 0.965 : 0.93;
-              const cardOpacity = mobileCoreStep === 0 ? 0.98 : 1;
-              const contentOpacity = mobileCoreStep === 0 ? (index === 0 ? 1 : 0.18) : isActive ? 1 : isPassed ? 0.06 : 0.14;
-
-              return (
-                <div
-                  key={value.id}
-                  className="absolute inset-0 transition-[transform,opacity] duration-1000 ease-[cubic-bezier(0.16,1,0.3,1)] shadow-[0_-20px_40px_rgba(0,0,0,0.8)]"
-                  style={{
-                    zIndex: index + 1 + (isActive ? 8 : 0),
-                    transform: `translateY(${y}dvh) scale(${scale})`,
-                    opacity: cardOpacity,
-                  }}
-                >
-                  <div className="absolute inset-0 w-full h-full">
-                    <img
-                      src={value.image}
-                      alt={value.title}
-                      className="w-full h-full object-cover opacity-100"
-                    />
-                    <div className="absolute inset-0 bg-dark-950/60" />
-                    <div className="absolute inset-0 bg-gradient-to-t from-dark-950 via-dark-950/82 to-dark-950/28" />
+              <motion.div
+                className="relative z-10 flex min-h-[100svh] min-h-[100dvh] flex-col justify-end px-8 pb-28 pt-24"
+                initial={{ opacity: 0.85, y: 16 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: false, amount: 0.45, margin: '-12% 0px -12% 0px' }}
+                transition={{ duration: 0.65, ease: [0.16, 1, 0.3, 1] }}
+              >
+                <div className="flex items-center gap-4 mb-6 text-gold-400">
+                  <div className="p-3 bg-gold-500/10 rounded-full border border-gold-500/20 backdrop-blur-sm">
+                    {value.icon}
                   </div>
-
-                  <div
-                    className="relative w-full p-8 pb-32 z-10 h-full flex flex-col justify-end transition-opacity duration-700"
-                    style={{ opacity: contentOpacity }}
-                  >
-                    <div className="flex items-center gap-4 mb-6 text-gold-400">
-                      <div className="p-3 bg-gold-500/10 rounded-full border border-gold-500/20 backdrop-blur-sm">
-                        {value.icon}
-                      </div>
-                      <span className="text-xs font-bold uppercase tracking-[0.25em]">{value.subtitle}</span>
-                    </div>
-                    <h3 className="font-serif text-6xl text-white mb-6 leading-tight">{value.title}</h3>
-                    <p className="text-white text-lg font-medium leading-relaxed max-w-md opacity-90">{value.description}</p>
-                  </div>
-
-                  <div className="absolute top-24 right-8 text-white/10 font-serif text-8xl font-bold">0{index + 1}</div>
-                  <div className="absolute top-0 left-0 w-full h-[1px] bg-white/10" />
+                  <span className="text-xs font-bold uppercase tracking-[0.25em]">{value.subtitle}</span>
                 </div>
-              );
-            })}
-          </div>
+                <h3 className="font-serif text-6xl text-white mb-6 leading-tight">{value.title}</h3>
+                <p className="text-white text-lg font-medium leading-relaxed max-w-md opacity-90 pb-4">
+                  {value.description}
+                </p>
+              </motion.div>
+
+              <div className="pointer-events-none absolute top-24 right-6 text-white/10 font-serif text-7xl sm:text-8xl font-bold">
+                0{index + 1}
+              </div>
+            </motion.div>
+          ))}
         </div>
       </section>
 

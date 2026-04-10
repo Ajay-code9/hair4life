@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowRight, Microscope, Zap, ShieldCheck, Award, CheckCircle2 } from 'lucide-react';
+import { ArrowRight, Microscope, Zap, ShieldCheck, CheckCircle2, Heart } from 'lucide-react';
 
 const procedureCategories = [
   {
@@ -54,6 +54,39 @@ const Procedures: React.FC = () => {
           <p className="text-xl text-white max-w-2xl mx-auto font-serif italic font-medium">
             Discover our comprehensive range of hair restoration and scalp care solutions, tailored to your individual needs.
           </p>
+        </div>
+
+        <div className="max-w-4xl mx-auto mt-16 px-4 sm:px-6">
+          <Link
+            to="/procedures/oncology-hair-support"
+            className="group relative flex flex-col sm:flex-row sm:items-center gap-6 overflow-hidden rounded-3xl border border-pink-400/35 bg-gradient-to-br from-pink-950/80 via-[#1a1420] to-emerald-950/50 p-8 sm:p-10 text-left shadow-[0_24px_70px_rgba(236,72,153,0.15)] hover:border-pink-300/50 transition-all duration-500 hover:-translate-y-0.5"
+          >
+            <div className="absolute -right-16 -top-16 h-48 w-48 rounded-full bg-pink-500/20 blur-3xl pointer-events-none group-hover:bg-pink-400/25 transition-colors" />
+            <div className="relative flex h-16 w-16 shrink-0 items-center justify-center rounded-2xl bg-pink-500/20 text-pink-300 ring-1 ring-pink-400/30">
+              <Heart className="h-8 w-8" strokeWidth={1.5} />
+            </div>
+            <div className="relative flex-1 min-w-0">
+              <div className="flex flex-wrap items-center gap-2 mb-2">
+                <span className="text-[10px] font-black uppercase tracking-[0.28em] text-pink-200">
+                  Compassionate care
+                </span>
+                <span className="rounded-full bg-gradient-to-r from-pink-500 to-rose-500 px-2.5 py-0.5 text-[9px] font-black uppercase tracking-wider text-white">
+                  30% off
+                </span>
+              </div>
+              <h2 className="text-2xl sm:text-3xl font-black text-white mb-2 group-hover:text-pink-100 transition-colors">
+                Oncology hair support
+              </h2>
+              <p className="text-slate-300 text-sm sm:text-base font-medium leading-relaxed max-w-xl">
+                Custom real-hair wigs and systems for patients navigating hair loss from treatment—with private
+                consultations and dedicated empathy.
+              </p>
+            </div>
+            <div className="relative flex shrink-0 items-center gap-2 text-pink-200 text-xs font-black uppercase tracking-[0.2em] sm:flex-col sm:items-end">
+              <span className="whitespace-nowrap">Learn more</span>
+              <ArrowRight className="h-5 w-5 group-hover:translate-x-1 transition-transform" />
+            </div>
+          </Link>
         </div>
       </div>
 

@@ -15,6 +15,7 @@ const Results = lazy(() => import('./pages/Results'));
 const Insights = lazy(() => import('./pages/Insights'));
 const BlogPost = lazy(() => import('./pages/BlogPost'));
 const ProcedureDetail = lazy(() => import('./pages/ProcedureDetail'));
+const OncologyHairSupport = lazy(() => import('./pages/OncologyHairSupport'));
 const NewsArticle = lazy(() => import('./pages/NewsArticle'));
 const Privacy = lazy(() => import('./pages/Privacy'));
 const Terms = lazy(() => import('./pages/Terms'));
@@ -114,6 +115,7 @@ const AnimatedRoutes = () => {
         <Route path="/about-hair-loss" element={<AboutHairLoss />} />
         <Route path="/about" element={<Navigate to="/about-hair-loss" replace />} />
         <Route path="/procedures" element={<Procedures />} />
+        <Route path="/procedures/oncology-hair-support" element={<OncologyHairSupport />} />
         <Route path="/procedures/:id" element={<ProcedureDetail />} />
         <Route path="/results" element={<Results />} />
         <Route path="/insights" element={<Insights />} />
@@ -133,6 +135,12 @@ const AnimatedRoutes = () => {
 
 const App: React.FC = () => {
   const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    if (typeof window !== 'undefined' && 'scrollRestoration' in window.history) {
+      window.history.scrollRestoration = 'manual';
+    }
+  }, []);
 
   return (
     <HashRouter>

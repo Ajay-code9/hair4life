@@ -27,7 +27,20 @@ const Navbar: React.FC = () => {
     { name: 'News & Articles', path: '/insights' },
   ];
 
-  const procedures = [
+  const procedures: {
+    category: string;
+    items: { name: string; path: string; badge?: string }[];
+  }[] = [
+    {
+      category: "COMPASSIONATE CARE",
+      items: [
+        {
+          name: "Oncology Hair Support",
+          path: "/procedures/oncology-hair-support",
+          badge: "30% off",
+        },
+      ],
+    },
     {
       category: "DIAGNOSTIC & CARE",
       items: [
@@ -181,7 +194,7 @@ const Navbar: React.FC = () => {
                         isProceduresOpen ? 'opacity-100 translate-y-0 pointer-events-auto' : 'opacity-0 translate-y-4 pointer-events-none'
                       }`}
                     >
-                      <div className="bg-white rounded-2xl shadow-[0_24px_90px_rgba(0,0,0,0.38)] border border-slate-100 p-10 xl:p-12 w-[980px] xl:w-[1080px] grid grid-cols-3 gap-10 xl:gap-12">
+                      <div className="bg-white rounded-2xl shadow-[0_24px_90px_rgba(0,0,0,0.38)] border border-slate-100 p-10 xl:p-12 w-[min(96vw,1220px)] grid grid-cols-2 lg:grid-cols-4 gap-8 xl:gap-10">
                         {procedures.map((category, idx) => (
                           <div key={idx} className="space-y-7">
                             <h3 className="text-xs font-black text-gold-500 tracking-[0.2em] uppercase border-b border-gold-100 pb-4">
@@ -193,9 +206,16 @@ const Navbar: React.FC = () => {
                                   <Link 
                                     to={item.path}
                                     onClick={() => setIsProceduresOpen(false)}
-                                    className="text-dark-800 text-base font-bold leading-relaxed hover:text-gold-500 transition-colors block py-2.5 px-3.5 hover:bg-gold-50 rounded-lg"
+                                    className={`text-dark-800 text-base font-bold leading-relaxed hover:text-gold-500 transition-colors flex flex-wrap items-center gap-2 py-2.5 px-3.5 hover:bg-gold-50 rounded-lg ${
+                                      item.badge ? 'ring-1 ring-pink-200/80 bg-pink-50/60 hover:bg-pink-50' : ''
+                                    }`}
                                   >
                                     {item.name}
+                                    {item.badge && (
+                                      <span className="text-[9px] font-black uppercase tracking-wider text-pink-600 bg-pink-100 px-2 py-0.5 rounded-full">
+                                        {item.badge}
+                                      </span>
+                                    )}
                                   </Link>
                                 </li>
                               ))}
@@ -294,11 +314,16 @@ const Navbar: React.FC = () => {
                                   setIsProceduresOpen(false);
                                   setIsOpen(false);
                                 }}
-                                className={`text-[15px] py-1.5 font-semibold transition-colors ${
+                                className={`text-[15px] py-1.5 font-semibold transition-colors flex flex-wrap items-center gap-2 ${
                                   isActive(item.path) ? 'text-gold-400' : 'text-white/90 hover:text-gold-400'
-                                }`}
+                                } ${item.badge ? 'text-pink-200' : ''}`}
                               >
                                 {item.name}
+                                {item.badge && (
+                                  <span className="text-[9px] font-black uppercase tracking-wider text-pink-950 bg-pink-300 px-2 py-0.5 rounded-full">
+                                    {item.badge}
+                                  </span>
+                                )}
                               </Link>
                             ))}
                           </div>

@@ -1,13 +1,26 @@
-import { useEffect } from 'react';
+import { useLayoutEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 
-const ScrollToTop = () => {
-  const { pathname } = useLocation();
+/** Instant scroll to top — before paint, and bypasses global `scroll-behavior: smooth` on html */
+function scrollToTopInstant() {
+  const html = document.documentElement;
+  const body = document.body;
+  const prevHtmlBehavior = html.style.scrollBehavior;
+  html.style.scrollBehavior = 'auto';
+  window.scrollTo(0, 0);
+  html.scrollTop = 0;
+  body.scrollTop = 0;
+  requestAnimationFrame(() => {
+    html.style.scrollBehavior = prevHtmlBehavior;
+  });
+}
 
-  useEffect(() => {
-    // Scrolls to the top of the document instantly when the path changes
-    window.scrollTo(0, 0);
-  }, [pathname]);
+const ScrollToTop = () => {
+  const { pathname, search } = useLocation();
+
+  useLayoutEffect(() => {
+    scrollToTopInstant();
+  }, [pathname, search]);
 
   return null;
 };
