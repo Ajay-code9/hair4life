@@ -6,6 +6,7 @@ import {
   openWhatsAppMessage,
 } from '../utils/contactOutreach';
 import { SITE } from '../config/site';
+import { clinicDirectionsHref } from '../utils/clinicDirections';
 import VisitingCardSection from '../components/VisitingCardSection';
 
 const Contact: React.FC = () => {
@@ -60,12 +61,16 @@ const Contact: React.FC = () => {
                  <span className="text-gold-400 font-serif text-2xl italic">01</span>
                  <div>
                     <h3 className="text-white font-bold uppercase tracking-wider text-sm mb-2">Clinic Address</h3>
-                    <p className="text-slate-500 font-light">
+                    <a
+                      href={clinicDirectionsHref()}
+                      className="text-slate-500 font-light hover:text-gold-400 transition-colors inline-block focus-visible:outline focus-visible:outline-2 focus-visible:outline-gold-500/60 rounded-sm"
+                      aria-label="Open directions to Hair4Life Clinic in your maps app"
+                    >
                       {SITE.addressLine1},<br/>
                       {SITE.addressLine2},<br/>
                       {SITE.addressLine3},<br/>
                       {SITE.addressLine4}
-                    </p>
+                    </a>
                  </div>
               </div>
               <div className="flex items-start gap-6">
@@ -94,8 +99,7 @@ const Contact: React.FC = () => {
                  <div>
                     <h3 className="text-white font-bold uppercase tracking-wider text-sm mb-2">Office Hours</h3>
                     <p className="text-slate-500 font-light">
-                      {SITE.officeHoursDisplay}<br />
-                      Closed on {SITE.officeClosedDay}
+                      {SITE.officeHoursDisplay}
                     </p>
                  </div>
               </div>

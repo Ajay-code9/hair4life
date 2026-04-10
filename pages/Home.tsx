@@ -4,10 +4,10 @@ import { Star, ArrowRight, Microscope, Palette, HeartHandshake, Users, Award, Ta
 import { motion } from 'motion/react';
 import YouTubeVideoCard from '../components/YouTubeVideoCard';
 import VisitingCardSection from '../components/VisitingCardSection';
-import GalleryMarqueeStrip from '../components/GalleryMarqueeStrip';
 import { SITE } from '../config/site';
 import { Testimonial } from '../types';
 import { openWhatsApp, WHATSAPP_NUMBER, WHATSAPP_MESSAGE } from '../components/WhatsAppFloat';
+import { positiveReviews } from '../data/positiveReviews';
 
 const testimonials: Testimonial[] = [
   {
@@ -400,8 +400,6 @@ const Home: React.FC = () => {
         </div>
       </section>
 
-      <GalleryMarqueeStrip label="Moments & milestones" className="my-4" />
-
       {/* CLINIC EXPERIENCE - LUXURY SHOWCASE */}
       <section className="py-32 bg-dark-950 relative overflow-hidden">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -608,6 +606,30 @@ const Home: React.FC = () => {
                 </div>
               </div>
             ))}
+          </div>
+
+          <div className="mt-12 border-y border-white/10 bg-dark-900/40 overflow-hidden rounded-xl">
+            <div
+              className="flex w-max animate-marquee motion-reduce:animate-none items-stretch gap-4 py-4 px-4"
+              style={{ animationDuration: '78s' }}
+            >
+              {[...positiveReviews, ...positiveReviews].map((review, idx) => (
+                <div
+                  key={`${review.id}-${idx}`}
+                  className="shrink-0 w-[290px] h-[142px] rounded-2xl border border-emerald-200/60 bg-[linear-gradient(135deg,#ffffff_0%,#f0fdf4_60%,#dcfce7_100%)] px-4 py-3 flex flex-col shadow-[0_10px_24px_rgba(0,0,0,0.2)]"
+                >
+                  <p className="text-sm font-black text-slate-900 truncate">{review.name}</p>
+                  <div className="flex items-center gap-1 text-gold-500 mt-2">
+                    {[...Array(5)].map((_, starIdx) => (
+                      <Star key={starIdx} className="w-3.5 h-3.5 fill-current" />
+                    ))}
+                  </div>
+                  <p className="text-xs text-slate-700 leading-relaxed mt-2 overflow-hidden">
+                    {review.text}
+                  </p>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </section>

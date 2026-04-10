@@ -14,8 +14,9 @@ const BeforeAfterSlider: React.FC<BeforeAfterSliderProps> = ({
   afterLabel = "After"
 }) => {
   const [sliderPosition, setSliderPosition] = useState(50);
-  const [isResizing, setIsResizing] = useState(false);
+  const [isDragging, setIsDragging] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
+  const activePointerIdRef = useRef<number | null>(null);
 
   const handleMove = (clientX: number) => {
     if (!containerRef.current) return;
@@ -24,35 +25,53 @@ const BeforeAfterSlider: React.FC<BeforeAfterSliderProps> = ({
     setSliderPosition((x / rect.width) * 100);
   };
 
-  const handleMouseDown = () => setIsResizing(true);
-  const handleMouseUp = () => setIsResizing(false);
-
-  const handleMouseMove = (e: React.MouseEvent) => {
-    if (isResizing) handleMove(e.clientX);
+  const handlePointerDown = (e: React.PointerEvent<HTMLDivElement>) => {
+    activePointerIdRef.current = e.pointerId;
+    setIsDragging(true);
+    e.currentTarget.setPointerCapture(e.pointerId);
+    handleMove(e.clientX);
   };
 
-  const handleTouchMove = (e: React.TouchEvent) => {
-    if (isResizing) handleMove(e.touches[0].clientX);
+  const handlePointerMove = (e: React.PointerEvent<HTMLDivElement>) => {
+    if (!isDragging) return;
+    handleMove(e.clientX);
+  };
+
+  const stopDragging = () => {
+    setIsDragging(false);
+    activePointerIdRef.current = null;
+  };
+
+  const handlePointerUp = (e: React.PointerEvent<HTMLDivElement>) => {
+    if (activePointerIdRef.current === e.pointerId) {
+      stopDragging();
+    }
+  };
+
+  const handlePointerCancel = (e: React.PointerEvent<HTMLDivElement>) => {
+    if (activePointerIdRef.current === e.pointerId) {
+      stopDragging();
+    }
   };
 
   useEffect(() => {
-    const handleGlobalMouseUp = () => setIsResizing(false);
-    window.addEventListener('mouseup', handleGlobalMouseUp);
-    window.addEventListener('touchend', handleGlobalMouseUp);
+    const handleGlobalUp = () => stopDragging();
+    window.addEventListener('pointerup', handleGlobalUp);
     return () => {
-      window.removeEventListener('mouseup', handleGlobalMouseUp);
-      window.removeEventListener('touchend', handleGlobalMouseUp);
+      window.removeEventListener('pointerup', handleGlobalUp);
     };
   }, []);
 
   return (
     <div 
       ref={containerRef}
-      className="relative aspect-[4/3] w-full overflow-hidden rounded-3xl border border-white/10 cursor-col-resize select-none group"
-      onMouseMove={handleMouseMove}
-      onTouchMove={handleTouchMove}
-      onMouseDown={handleMouseDown}
-      onTouchStart={handleMouseDown}
+      className={`relative aspect-[4/3] w-full overflow-hidden rounded-3xl border border-white/10 select-none group touch-none ${
+        isDragging ? 'cursor-col-resize' : 'cursor-ew-resize'
+      }`}
+      onPointerDown={handlePointerDown}
+      onPointerMove={handlePointerMove}
+      onPointerUp={handlePointerUp}
+      onPointerCancel={handlePointerCancel}
     >
       {/* After Image (Background) */}
       <img 

@@ -18,7 +18,12 @@ export const SITE = {
   addressLine2: 'Near Das Khaman, Opp HP Petrol Pump',
   addressLine3: 'Paldi Road, Paldi, Ahmedabad - 380007',
   addressLine4: 'Gujarat, India',
-  officeHoursDisplay: '10:00 AM - 08:00 PM',
+  /** Clinic pin (Mahavir Tower) — matches Google Maps embed on Contact page */
+  mapsLatitude: 23.01239887918099,
+  mapsLongitude: 72.56071947510372,
+  /** Single line for navbar, footer, contact */
+  officeHoursDisplay: 'Working Hours: 10 AM – 8 PM | Tuesday Off',
+  /** Keep for filters/logic if needed */
   officeClosedDay: 'Tuesday',
   /** WhatsApp wa.me number — country code + number, no + */
   whatsappNumber: '919664044414',

@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Facebook, Twitter, Instagram, Mail, Phone, MapPin } from 'lucide-react';
 import { SITE } from '../config/site';
+import { clinicDirectionsHref } from '../utils/clinicDirections';
 import { buildNewsletterMailto, buildNewsletterWhatsAppText, openWhatsAppMessage } from '../utils/contactOutreach';
 
 const Footer: React.FC = () => {
@@ -93,18 +94,22 @@ const Footer: React.FC = () => {
                 <div className="w-8 h-8 bg-gold-500/10 rounded-lg flex items-center justify-center flex-shrink-0 group-hover:bg-gold-500/20 transition-all">
                   <MapPin className="h-4 w-4 text-gold-500" />
                 </div>
-                <span className="group-hover:text-white transition-colors leading-relaxed">
+                <a
+                  href={clinicDirectionsHref()}
+                  className="group-hover:text-white transition-colors leading-relaxed text-slate-300 hover:text-gold-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-gold-500/60 rounded-sm"
+                  aria-label="Open directions to Hair4Life Clinic"
+                >
                   {SITE.addressLine1},<br />
                   {SITE.addressLine2},<br />
                   {SITE.addressLine3}
-                </span>
+                </a>
               </li>
               <li className="flex items-center gap-4 group">
                 <div className="w-8 h-8 bg-gold-500/10 rounded-lg flex items-center justify-center flex-shrink-0 group-hover:bg-gold-500/20 transition-all">
                   <span className="text-gold-500 text-[10px] font-black">HRS</span>
                 </div>
                 <span className="group-hover:text-white transition-colors">
-                  {SITE.officeHoursDisplay} (Except {SITE.officeClosedDay})
+                  {SITE.officeHoursDisplay}
                 </span>
               </li>
               <li className="flex items-center gap-4 group">

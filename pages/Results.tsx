@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'motion/react';
 import BeforeAfterSlider from '../components/BeforeAfterSlider';
+import { positiveReviews } from '../data/positiveReviews';
 
 interface Result {
   id: string;
@@ -13,14 +14,19 @@ interface Result {
   description: string;
 }
 
+/** Split so two marquee rows never show the same reviewers at once */
+const reviewMarqueeMid = Math.ceil(positiveReviews.length / 2);
+const positiveReviewsRow1 = positiveReviews.slice(0, reviewMarqueeMid);
+const positiveReviewsRow2 = positiveReviews.slice(reviewMarqueeMid);
+
 const results: Result[] = [
   {
     id: '1',
     category: 'Hair Transplant',
     grafts: '3500 Grafts',
     timeframe: '12 Months',
-    imageBefore: 'https://images.unsplash.com/photo-1620331713240-ed6d53b52e4c?auto=format&fit=crop&q=80&w=800',
-    imageAfter: 'https://images.unsplash.com/photo-1596704017254-9b121068fb31?auto=format&fit=crop&q=80&w=800',
+    imageBefore: 'https://images.unsplash.com/photo-1595152452543-e5cca283f588?auto=format&fit=crop&q=80&w=900',
+    imageAfter: 'https://images.unsplash.com/photo-1595152772835-219674b2a8a6?auto=format&fit=crop&q=80&w=900',
     description: 'Complete frontal restoration using H4L® FUE (Follicular Unit Extraction) sapphire technique to create a dense, natural hairline.'
   },
   {
@@ -28,8 +34,8 @@ const results: Result[] = [
     category: 'Beard Restoration',
     grafts: '2100 Grafts',
     timeframe: '8 Months',
-    imageBefore: 'https://images.unsplash.com/photo-1595152452543-e5cca283f588?auto=format&fit=crop&q=80&w=800',
-    imageAfter: 'https://images.unsplash.com/photo-1595152772835-219674b2a8a6?auto=format&fit=crop&q=80&w=800',
+    imageBefore: 'https://images.unsplash.com/photo-1559599101-f09722fb4948?auto=format&fit=crop&q=80&w=900',
+    imageAfter: 'https://images.unsplash.com/photo-1559599238-308793637427?auto=format&fit=crop&q=80&w=900',
     description: 'Correction of patchy beard growth. High density implementation for a full, masculine look.'
   },
   {
@@ -37,8 +43,8 @@ const results: Result[] = [
     category: 'Crown Area',
     grafts: '4000 Grafts',
     timeframe: '14 Months',
-    imageBefore: 'https://images.unsplash.com/photo-1614913501099-36916c683c31?auto=format&fit=crop&q=80&w=800',
-    imageAfter: 'https://images.unsplash.com/photo-1614913501460-6c9c7f683615?auto=format&fit=crop&q=80&w=800',
+    imageBefore: 'https://images.unsplash.com/photo-1622288432450-277d0fef5ed6?auto=format&fit=crop&q=80&w=900',
+    imageAfter: 'https://images.unsplash.com/photo-1614436163996-25cee5f54290?auto=format&fit=crop&q=80&w=900',
     description: 'Advanced vertex coverage. Using DHI to ensure maximum density in the crown area.'
   }
 ];
@@ -136,6 +142,77 @@ const Results: React.FC = () => {
             </motion.div>
           ))}
         </div>
+
+        {/* Video Results Space (ready for 2 client videos) */}
+        <section className="mt-40">
+          <div className="flex items-center justify-between gap-4 mb-10">
+            <h2 className="text-3xl md:text-4xl font-black text-white">Video Results</h2>
+            <span className="text-[10px] font-black uppercase tracking-[0.3em] text-gold-400">
+              Coming next
+            </span>
+          </div>
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            {[1, 2].map((slot) => (
+              <div
+                key={slot}
+                className="relative rounded-3xl border border-white/10 bg-dark-900/60 p-4 md:p-5"
+              >
+                <div className="aspect-video rounded-2xl border border-dashed border-gold-500/40 bg-dark-950/80 flex items-center justify-center text-center px-6">
+                  <div>
+                    <p className="text-gold-400 text-[10px] font-black uppercase tracking-[0.25em] mb-3">
+                      Video Slot 0{slot}
+                    </p>
+                    <p className="text-slate-400 text-sm font-medium">
+                      Reserved space for client result video {slot}.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        <section className="mt-40">
+          <div className="text-center mb-10">
+            <span className="text-gold-400 text-[10px] font-black uppercase tracking-[0.3em] block mb-3">
+              Google Highlights
+            </span>
+            <h2 className="text-3xl md:text-4xl font-black text-white">What patients loved most</h2>
+          </div>
+          <div className="space-y-4">
+            {[
+              { row: 0, items: positiveReviewsRow1, duration: '88s', delay: '0s' },
+              { row: 1, items: positiveReviewsRow2, duration: '102s', delay: '-18s' },
+            ].map(({ row, items, duration, delay }) => (
+              <div
+                key={row}
+                className="overflow-hidden rounded-2xl border border-white/10 bg-dark-900/30"
+              >
+                <div
+                  className="flex w-max animate-marquee motion-reduce:animate-none items-stretch gap-4 py-4 px-4"
+                  style={{ animationDuration: duration, animationDelay: delay }}
+                >
+                  {[...items, ...items].map((review, idx) => (
+                    <div
+                      key={`${review.id}-${row}-${idx}`}
+                      className="shrink-0 w-[300px] h-[150px] rounded-2xl border border-emerald-200/60 bg-[linear-gradient(135deg,#ffffff_0%,#f0fdf4_60%,#dcfce7_100%)] p-4 flex flex-col shadow-[0_10px_24px_rgba(0,0,0,0.2)]"
+                    >
+                      <p className="text-sm font-black text-slate-900 truncate">{review.name}</p>
+                      <div className="flex items-center gap-1 text-gold-500 mt-2">
+                        {[...Array(5)].map((_, starIdx) => (
+                          <span key={starIdx}>★</span>
+                        ))}
+                      </div>
+                      <p className="text-sm text-slate-700 leading-relaxed mt-2 overflow-hidden">
+                        "{review.text}"
+                      </p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            ))}
+          </div>
+        </section>
 
         {/* Transparency Note */}
         <div className="mt-40 bg-dark-900/50 border border-white/5 p-12 rounded-[3rem] relative overflow-hidden">

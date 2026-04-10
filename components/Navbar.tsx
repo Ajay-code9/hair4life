@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Menu, X, Phone, MapPin, Mail, Clock, ChevronDown } from 'lucide-react';
 import { SITE } from '../config/site';
+import { clinicDirectionsHref } from '../utils/clinicDirections';
 
 const Navbar: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -85,21 +86,29 @@ const Navbar: React.FC = () => {
         <div className={`overflow-hidden transition-all duration-500 ${scrolled ? 'max-h-0 opacity-0' : 'max-h-12 opacity-100'} bg-dark-900/50 backdrop-blur-sm border-b border-white/5 text-[10px] md:text-xs font-medium tracking-wide text-slate-400 py-2 relative z-50`}>
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row justify-between items-center gap-2 md:gap-0">
             <div className="hidden md:flex items-center gap-6">
-              <span className="flex items-center gap-2 hover:text-white transition-colors cursor-default">
+              <a
+                href={clinicDirectionsHref()}
+                className="flex items-center gap-2 hover:text-white transition-colors cursor-pointer"
+                aria-label="Open directions to Hair4Life Clinic"
+              >
                 <MapPin className="w-3 h-3 text-gold-500" />
                 {SITE.addressLine1}, Paldi, Ahmedabad
-              </span>
+              </a>
               <span className="flex items-center gap-2 hover:text-white transition-colors cursor-default">
                 <Clock className="w-3 h-3 text-gold-500" />
-                {SITE.officeHoursDisplay} (Except {SITE.officeClosedDay})
+                {SITE.officeHoursDisplay}
               </span>
             </div>
             <div className="flex items-center justify-between w-full md:w-auto gap-4 md:gap-8">
               {/* Mobile Location Abbreviated */}
-              <span className="flex md:hidden items-center gap-1.5 hover:text-white transition-colors cursor-default">
+              <a
+                href={clinicDirectionsHref()}
+                className="flex md:hidden items-center gap-1.5 hover:text-white transition-colors cursor-pointer"
+                aria-label="Open directions to Hair4Life Clinic"
+              >
                 <MapPin className="w-3 h-3 text-gold-500" />
                 Paldi, Ahmedabad
-              </span>
+              </a>
 
               <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-2">
                 <a href={`tel:${SITE.phoneTel}`} className="flex items-center gap-2 hover:text-white transition-colors group">

@@ -1,6 +1,7 @@
 import React from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { CheckCircle2, ArrowRight, ShieldCheck, Zap, Award, Users } from 'lucide-react';
+import { motion } from 'motion/react';
 
 const procedureData: Record<string, any> = {
   'overview': {
@@ -206,6 +207,13 @@ const ProcedureDetail: React.FC = () => {
     );
   }
 
+  const journeySteps = [
+    { step: '01', title: 'Consultation', desc: 'A thorough clinical assessment of your hair loss pattern and health history.' },
+    { step: '02', title: 'Design', desc: 'Custom hairline design and treatment planning tailored to your facial structure.' },
+    { step: '03', title: 'Procedure', desc: 'Execution of the chosen treatment in our state-of-the-art clinical environment.' },
+    { step: '04', title: 'Aftercare', desc: 'Comprehensive follow-up and maintenance program to ensure long-term success.' },
+  ];
+
   return (
     <div className="bg-dark-950 min-h-screen pt-24">
       {/* Hero Section */}
@@ -394,19 +402,22 @@ const ProcedureDetail: React.FC = () => {
               <span className="text-gold-500 text-[10px] font-black uppercase tracking-[0.3em] mb-4 block">The Process</span>
               <h2 className="text-4xl font-black text-white">Your Treatment Journey</h2>
             </div>
-            
             <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
-              {[
-                { step: "01", title: "Consultation", desc: "A thorough clinical assessment of your hair loss pattern and health history." },
-                { step: "02", title: "Design", desc: "Custom hairline design and treatment planning tailored to your facial structure." },
-                { step: "03", title: "Procedure", desc: "Execution of the chosen treatment in our state-of-the-art clinical environment." },
-                { step: "04", title: "Aftercare", desc: "Comprehensive follow-up and maintenance program to ensure long-term success." }
-              ].map((item, idx) => (
-                <div key={idx} className="relative group p-8 bg-dark-900/50 border border-white/5 rounded-3xl hover:border-gold-400/80 hover:shadow-[0_0_0_1px_rgba(34,197,94,0.35),0_18px_36px_rgba(34,197,94,0.18)] transition-all">
+              {journeySteps.map((item, idx) => (
+                <motion.div
+                  key={idx}
+                  initial={{ opacity: 0, y: 30, scale: 0.97 }}
+                  whileInView={{ opacity: 1, y: 0, scale: 1 }}
+                  viewport={{ once: true, margin: '-40px' }}
+                  transition={{ duration: 0.95, delay: idx * 0.18, ease: [0.16, 1, 0.3, 1] }}
+                  whileHover={{ y: -6 }}
+                  className="relative group p-8 bg-dark-900/50 border border-white/5 rounded-3xl hover:border-gold-400/80 hover:shadow-[0_0_0_1px_rgba(34,197,94,0.35),0_18px_36px_rgba(34,197,94,0.18)] transition-all"
+                >
+                  <div className="absolute -top-8 -right-8 h-24 w-24 rounded-full bg-gold-500/10 blur-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
                   <div className="text-5xl font-serif text-gold-500/25 mb-6 group-hover:text-gold-300 transition-colors">{item.step}</div>
                   <h4 className="text-xl font-black text-white mb-4">{item.title}</h4>
                   <p className="text-sm text-slate-400 leading-relaxed font-light">{item.desc}</p>
-                </div>
+                </motion.div>
               ))}
             </div>
           </div>
