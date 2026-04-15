@@ -1,7 +1,75 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { CheckCircle2, ArrowRight, ShieldCheck, Zap, Award, Users } from 'lucide-react';
 import { motion } from 'motion/react';
+
+type BrandTabKey = 'whyChoose' | 'mission' | 'vision';
+
+const brandTabs: {
+  key: BrandTabKey;
+  label: string;
+  title: string;
+  intro: string;
+  paragraphs: string[];
+  points: string[];
+}[] = [
+  {
+    key: 'whyChoose',
+    label: 'Why Choose',
+    title: 'Why Choose Hair4Life?',
+    intro:
+      'At Hair4Life, we combine medical precision, artistic planning, and honest guidance so every patient can make confident decisions.',
+    paragraphs: [
+      'While many quality surgeons offer restoration, our facility is focused on FUI (Follicular Unit Implantation) with personal attention at every step.',
+      'We explain benefits, limitations, and expected outcomes in a warm, professional setting so you can choose what is right for you.',
+      'Large chains often pass marketing and infrastructure costs to patients. Our reputation is built primarily through outcomes, referrals, and trust.',
+      'Whether you choose treatment now or later, patient education remains our priority. We focus on realistic, natural-looking outcomes without pressure.',
+    ],
+    points: [
+      'Client-centered consultations with experts and surgeons',
+      'Clinical and non-clinical options under one roof',
+      'No false promises, no high-pressure selling',
+      'Safety, transparency, and budget-conscious planning',
+    ],
+  },
+  {
+    key: 'mission',
+    label: 'Our Mission',
+    title: 'Our Mission',
+    intro:
+      'Hair 4 Life is committed to educating and improving the lives of people affected by hair loss.',
+    paragraphs: [
+      'We work to normalize hair loss across society and the medical community by spreading awareness and practical guidance.',
+      'Because hair loss impacts confidence, identity, and daily life, we provide effective treatment pathways and supportive resources.',
+      'Our complete range of hair and skin services combines technology, art, and science to deliver the best achievable results.',
+      'We stay transparent in every recommendation: no unrealistic claims, only honest planning for natural outcomes.',
+    ],
+    points: [
+      'Awareness-first, education-led approach',
+      'Support that addresses emotional and practical concerns',
+      'Integrated hair + skin services',
+      'Ethical communication with outcome-focused care',
+    ],
+  },
+  {
+    key: 'vision',
+    label: 'Our Vision',
+    title: 'Our Vision',
+    intro:
+      'Our vision is to offer cost-effective, premium-quality hair and skin solutions through continuous research and innovation.',
+    paragraphs: [
+      'We aim to grow by understanding each client deeply and delivering effective, personalized solutions.',
+      'By reducing stigma and negativity around hair and skin concerns, we help patients regain confidence and improve well-being.',
+      'We are committed to sustainable growth, clinical excellence, and a positive, harmonious care environment.',
+    ],
+    points: [
+      'Research-driven innovation in every stage of care',
+      'Premium quality with practical affordability',
+      'Positive impact on individuals and society',
+      'Long-term excellence with responsible growth',
+    ],
+  },
+];
 
 const procedureData: Record<string, any> = {
   'overview': {
@@ -196,6 +264,8 @@ const procedureData: Record<string, any> = {
 const ProcedureDetail: React.FC = () => {
   const { id } = useParams<{ id: string }>();
   const data = id ? procedureData[id] : null;
+  const [activeBrandTab, setActiveBrandTab] = useState<BrandTabKey>('whyChoose');
+  const activeBrandContent = brandTabs.find((tab) => tab.key === activeBrandTab) ?? brandTabs[0];
 
   if (!data) {
     return (
@@ -309,38 +379,45 @@ const ProcedureDetail: React.FC = () => {
             <div className="space-y-8">
               <div className="bg-dark-900/50 border border-white/5 p-10 rounded-3xl relative overflow-hidden group">
                 <div className="absolute top-0 right-0 w-32 h-32 bg-gold-500/10 blur-3xl -mr-16 -mt-16 group-hover:bg-gold-500/20 transition-colors"></div>
-                <h3 className="text-2xl font-black text-white mb-8">Why Choose Hair4Life?</h3>
-                
-                <div className="space-y-8">
-                  <div className="flex gap-6">
-                    <div className="w-12 h-12 bg-gold-500/20 rounded-2xl flex items-center justify-center flex-shrink-0">
-                      <ShieldCheck className="w-6 h-6 text-gold-500" />
-                    </div>
-                    <div>
-                      <h4 className="text-lg font-bold text-white mb-2">Safety First</h4>
-                      <p className="text-sm text-slate-400">All procedures are performed in medical-grade environments with strict safety protocols.</p>
-                    </div>
-                  </div>
+                <div className="flex flex-wrap gap-2 mb-6">
+                  {brandTabs.map((tab) => (
+                    <button
+                      key={tab.key}
+                      type="button"
+                      onClick={() => setActiveBrandTab(tab.key)}
+                      className={`px-4 py-2 rounded-full text-[10px] font-black uppercase tracking-[0.2em] transition-all border ${
+                        activeBrandTab === tab.key
+                          ? 'bg-gold-500 text-white border-gold-500'
+                          : 'bg-white/5 text-slate-300 border-white/10 hover:border-gold-500/40 hover:text-gold-300'
+                      }`}
+                    >
+                      {tab.label}
+                    </button>
+                  ))}
+                </div>
+                <h3 className="text-2xl font-black text-white mb-4">{activeBrandContent.title}</h3>
+                <p className="text-sm text-slate-300 leading-relaxed mb-5">
+                  {activeBrandContent.intro}
+                </p>
 
-                  <div className="flex gap-6">
-                    <div className="w-12 h-12 bg-gold-500/20 rounded-2xl flex items-center justify-center flex-shrink-0">
-                      <Zap className="w-6 h-6 text-gold-500" />
-                    </div>
-                    <div>
-                      <h4 className="text-lg font-bold text-white mb-2">Latest Technology</h4>
-                      <p className="text-sm text-slate-400">We invest in the world's most advanced hair restoration technologies for superior results.</p>
-                    </div>
-                  </div>
+                <div className="space-y-3">
+                  {activeBrandContent.paragraphs.map((para) => (
+                    <p key={para} className="text-sm text-slate-400 leading-relaxed">
+                      {para}
+                    </p>
+                  ))}
+                </div>
 
-                  <div className="flex gap-6">
-                    <div className="w-12 h-12 bg-gold-500/20 rounded-2xl flex items-center justify-center flex-shrink-0">
-                      <Award className="w-6 h-6 text-gold-500" />
+                <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 gap-3">
+                  {activeBrandContent.points.map((point) => (
+                    <div
+                      key={point}
+                      className="rounded-xl border border-white/10 bg-white/[0.03] px-3.5 py-3 text-sm text-slate-300 flex items-start gap-2"
+                    >
+                      <CheckCircle2 className="w-4 h-4 text-gold-500 mt-0.5 flex-shrink-0" />
+                      <span>{point}</span>
                     </div>
-                    <div>
-                      <h4 className="text-lg font-bold text-white mb-2">Expert Team</h4>
-                      <p className="text-sm text-slate-400">Our specialists have decades of combined experience in hair restoration surgery and care.</p>
-                    </div>
-                  </div>
+                  ))}
                 </div>
               </div>
 

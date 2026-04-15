@@ -1,8 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'motion/react';
+import { ArrowRight } from 'lucide-react';
 import BeforeAfterSlider from '../components/BeforeAfterSlider';
 import { positiveReviews } from '../data/positiveReviews';
+import { SITE } from '../config/site';
 
 interface Result {
   id: string;
@@ -11,6 +13,11 @@ interface Result {
   timeframe: string;
   imageBefore: string;
   imageAfter: string;
+  imageFit?: 'cover' | 'contain';
+  viewMode?: 'compare' | 'collage';
+  detailTitle?: string;
+  techniqueLabel?: string;
+  ageLabel?: string;
   description: string;
 }
 
@@ -23,29 +30,35 @@ const results: Result[] = [
   {
     id: '1',
     category: 'Hair Transplant',
-    grafts: '3500 Grafts',
+    grafts: '3000 Grafts',
     timeframe: '12 Months',
-    imageBefore: 'https://images.unsplash.com/photo-1595152452543-e5cca283f588?auto=format&fit=crop&q=80&w=900',
-    imageAfter: 'https://images.unsplash.com/photo-1595152772835-219674b2a8a6?auto=format&fit=crop&q=80&w=900',
+    imageBefore: '/images/beforeafter/before1.svg',
+    imageAfter: '/images/beforeafter/after1.svg',
+    imageFit: 'contain',
     description: 'Complete frontal restoration using H4L® FUE (Follicular Unit Extraction) sapphire technique to create a dense, natural hairline.'
   },
   {
     id: '2',
-    category: 'Beard Restoration',
-    grafts: '2100 Grafts',
-    timeframe: '8 Months',
-    imageBefore: 'https://images.unsplash.com/photo-1559599101-f09722fb4948?auto=format&fit=crop&q=80&w=900',
-    imageAfter: 'https://images.unsplash.com/photo-1559599238-308793637427?auto=format&fit=crop&q=80&w=900',
-    description: 'Correction of patchy beard growth. High density implementation for a full, masculine look.'
-  },
-  {
-    id: '3',
     category: 'Crown Area',
     grafts: '4000 Grafts',
     timeframe: '14 Months',
-    imageBefore: 'https://images.unsplash.com/photo-1622288432450-277d0fef5ed6?auto=format&fit=crop&q=80&w=900',
-    imageAfter: 'https://images.unsplash.com/photo-1614436163996-25cee5f54290?auto=format&fit=crop&q=80&w=900',
+    imageBefore: '/images/beforeafter/beforecrown.svg',
+    imageAfter: '/images/beforeafter/aftercrown.svg',
+    imageFit: 'contain',
     description: 'Advanced vertex coverage. Using DHI to ensure maximum density in the crown area.'
+  },
+  {
+    id: '3',
+    category: 'Beard Precision Study',
+    grafts: '2100 Grafts',
+    timeframe: 'Dual-Angle View',
+    imageBefore: '/images/beforeafter/beard1.svg',
+    imageAfter: '/images/beforeafter/beard2.svg',
+    viewMode: 'collage',
+    detailTitle: 'Beard Craftsmanship Details',
+    techniqueLabel: 'Design Precision',
+    ageLabel: 'Execution Quality',
+    description: 'These two side-profile views of the same client highlight how precisely the beard line, density flow, and angle matching were executed for a balanced, natural masculine finish.'
   }
 ];
 
@@ -94,6 +107,25 @@ const Results: React.FC = () => {
         </div>
       </div>
 
+      <section className="py-20 border-b border-white/5 relative overflow-hidden">
+        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_20%_25%,rgba(0,133,84,0.14),transparent_45%),radial-gradient(circle_at_78%_80%,rgba(255,215,130,0.1),transparent_42%)]" />
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+          <div className="rounded-[2rem] border border-white/10 bg-dark-900/55 p-8 md:p-10 shadow-[0_20px_55px_rgba(0,0,0,0.35)]">
+            <span className="text-gold-400 text-[10px] font-black uppercase tracking-[0.3em] block mb-3">
+              Welcome to Hair4Life
+            </span>
+            <h2 className="font-serif text-3xl md:text-5xl text-white mb-4 leading-tight">
+              Complete Hair Solutions
+            </h2>
+            <p className="text-slate-300 max-w-4xl leading-relaxed">
+              We combine advanced hair and skin care under one roof—from H4L® Laser Therapy and H4L® Hair Check to
+              H4L® Salon Services and Skin4Life™ support—delivered by expert teams in Ahmedabad and Mumbai in a warm,
+              hygienic setting.
+            </p>
+          </div>
+        </div>
+      </section>
+
       {/* Gallery Grid */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-32">
         <div className="grid grid-cols-1 gap-40">
@@ -119,22 +151,45 @@ const Results: React.FC = () => {
 
               <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
                 <div className="lg:col-span-8">
-                  <BeforeAfterSlider 
-                    beforeImage={item.imageBefore} 
-                    afterImage={item.imageAfter} 
-                  />
+                  {item.viewMode === 'collage' ? (
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                      {[item.imageBefore, item.imageAfter].map((src, collageIdx) => (
+                        <div
+                          key={`${item.id}-collage-${collageIdx}`}
+                          className="relative aspect-[4/3] overflow-hidden rounded-3xl border border-white/10 bg-dark-900/40"
+                        >
+                          <img
+                            src={src}
+                            alt={`${item.category} portfolio view ${collageIdx + 1}`}
+                            className="w-full h-full object-cover"
+                            referrerPolicy="no-referrer"
+                          />
+                          <div className="absolute inset-0 bg-gradient-to-t from-dark-950/45 via-transparent to-transparent" />
+                          <div className="absolute bottom-4 left-4 px-3 py-1.5 rounded-full border border-white/15 bg-black/45 text-[10px] font-black uppercase tracking-[0.2em] text-white">
+                            View {collageIdx + 1}
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  ) : (
+                    <BeforeAfterSlider 
+                      beforeImage={item.imageBefore} 
+                      afterImage={item.imageAfter} 
+                      imageFit={item.imageFit}
+                    />
+                  )}
                 </div>
                 <div className="lg:col-span-4 space-y-8">
-                  <h3 className="text-3xl font-black text-white leading-tight">Transformation Details</h3>
+                  <h3 className="text-3xl font-black text-white leading-tight">{item.detailTitle ?? 'Transformation Details'}</h3>
                   <p className="text-white text-lg leading-relaxed font-serif italic font-medium">"{item.description}"</p>
                   <div className="pt-8 grid grid-cols-2 gap-4">
                     <div className="p-6 bg-white/5 border border-white/10 rounded-3xl">
-                      <span className="block text-gold-500 text-[10px] font-black uppercase tracking-widest mb-2">Technique</span>
-                      <span className="text-white font-bold">Sapphire FUE</span>
+                      <span className="block text-gold-500 text-[10px] font-black uppercase tracking-widest mb-2">{item.techniqueLabel ?? 'Technique'}</span>
+                      <span className="text-white font-bold">{item.viewMode === 'collage' ? 'Line Symmetry & Density Control' : 'Sapphire FUE'}</span>
                     </div>
                     <div className="p-6 bg-white/5 border border-white/10 rounded-3xl">
-                      <span className="block text-gold-500 text-[10px] font-black uppercase tracking-widest mb-2">Patient Age</span>
-                      <span className="text-white font-bold">34 Years</span>
+                      <span className="block text-gold-500 text-[10px] font-black uppercase tracking-widest mb-2">{item.ageLabel ?? 'Patient Age'}</span>
+                      <span className="text-white font-bold">{item.viewMode === 'collage' ? 'Natural Side-Profile Finish' : '34 Years'}</span>
                     </div>
                   </div>
                 </div>
@@ -232,18 +287,29 @@ const Results: React.FC = () => {
             <p className="text-white/80 text-xl mb-12 font-serif italic max-w-2xl mx-auto">
               Send us your photos on WhatsApp for a preliminary assessment and graft estimate.
             </p>
-            <Link 
-              to="/contact" 
-              className="inline-flex items-center gap-4 bg-white text-dark-950 px-12 py-6 rounded-full font-black uppercase tracking-widest hover:bg-dark-950 hover:text-white transition-all duration-500 shadow-2xl"
-            >
-              Start Assessment
-              <motion.div
-                animate={{ x: [0, 5, 0] }}
-                transition={{ repeat: Infinity, duration: 1.5 }}
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+              <Link 
+                to="/contact" 
+                className="inline-flex items-center gap-4 bg-white text-dark-950 px-12 py-6 rounded-full font-black uppercase tracking-widest hover:bg-dark-950 hover:text-white transition-all duration-500 shadow-2xl"
               >
-                →
-              </motion.div>
-            </Link>
+                Start Assessment
+                <motion.div
+                  animate={{ x: [0, 5, 0] }}
+                  transition={{ repeat: Infinity, duration: 1.5 }}
+                >
+                  →
+                </motion.div>
+              </Link>
+              <a
+                href={SITE.emiApplyUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-3 bg-emerald-500 text-white px-10 py-6 rounded-full font-black uppercase tracking-[0.18em] hover:bg-emerald-400 transition-colors duration-500 shadow-[0_18px_40px_rgba(16,185,129,0.35)]"
+              >
+                Apply Now - 0% EMI
+                <ArrowRight className="w-4 h-4" />
+              </a>
+            </div>
           </div>
         </div>
       </div>

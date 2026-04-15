@@ -5,13 +5,15 @@ interface BeforeAfterSliderProps {
   afterImage: string;
   beforeLabel?: string;
   afterLabel?: string;
+  imageFit?: 'cover' | 'contain';
 }
 
 const BeforeAfterSlider: React.FC<BeforeAfterSliderProps> = ({
   beforeImage,
   afterImage,
   beforeLabel = "Before",
-  afterLabel = "After"
+  afterLabel = "After",
+  imageFit = 'cover',
 }) => {
   const [sliderPosition, setSliderPosition] = useState(50);
   const [isDragging, setIsDragging] = useState(false);
@@ -65,7 +67,7 @@ const BeforeAfterSlider: React.FC<BeforeAfterSliderProps> = ({
   return (
     <div 
       ref={containerRef}
-      className={`relative aspect-[4/3] w-full overflow-hidden rounded-3xl border border-white/10 select-none group touch-none ${
+      className={`relative aspect-[4/3] w-full overflow-hidden rounded-3xl border border-white/10 bg-dark-950 select-none group touch-none ${
         isDragging ? 'cursor-col-resize' : 'cursor-ew-resize'
       }`}
       onPointerDown={handlePointerDown}
@@ -77,7 +79,7 @@ const BeforeAfterSlider: React.FC<BeforeAfterSliderProps> = ({
       <img 
         src={afterImage} 
         alt="After" 
-        className="absolute inset-0 w-full h-full object-cover"
+        className={`absolute inset-0 w-full h-full ${imageFit === 'contain' ? 'object-contain object-center' : 'object-cover'}`}
         referrerPolicy="no-referrer"
       />
       
@@ -89,7 +91,7 @@ const BeforeAfterSlider: React.FC<BeforeAfterSliderProps> = ({
         <img 
           src={beforeImage} 
           alt="Before" 
-          className="absolute inset-0 w-full h-full object-cover filter grayscale opacity-90"
+          className={`absolute inset-0 w-full h-full filter grayscale opacity-90 ${imageFit === 'contain' ? 'object-contain object-center' : 'object-cover'}`}
           referrerPolicy="no-referrer"
         />
       </div>

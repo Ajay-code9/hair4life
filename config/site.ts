@@ -35,4 +35,5 @@ export const SITE = {
   },
   /** Official YouTube channel (videos embedded on the site are from here). */
   youtubeChannelUrl: 'https://www.youtube.com/@hair4lifecompletehairsolut880',
+  emiApplyUrl: 'https://customer.savein.money/qr/mr-dhiren-kansara',
 } as const;

@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowRight, Microscope, Zap, ShieldCheck, CheckCircle2, Heart } from 'lucide-react';
+import { SITE } from '../config/site';
 
 const procedureCategories = [
   {
@@ -139,13 +140,24 @@ const Procedures: React.FC = () => {
             <p className="text-white text-lg mb-12 max-w-2xl mx-auto font-medium">
               Our experts are here to help. Schedule a comprehensive hair check and consultation to receive a personalized treatment plan.
             </p>
-            <Link 
-              to="/contact"
-              className="inline-flex items-center gap-3 bg-gold-500 text-white px-12 py-6 rounded-full font-black uppercase tracking-widest hover:bg-white hover:text-dark-950 transition-all duration-500 shadow-[0_20px_40px_rgba(0,133,84,0.3)]"
-            >
-              Book Consultation
-              <ArrowRight className="w-5 h-5" />
-            </Link>
+            <div className="flex flex-col sm:flex-row justify-center items-center gap-4">
+              <Link 
+                to="/contact"
+                className="inline-flex items-center gap-3 bg-gold-500 text-white px-12 py-6 rounded-full font-black uppercase tracking-widest hover:bg-white hover:text-dark-950 transition-all duration-500 shadow-[0_20px_40px_rgba(0,133,84,0.3)]"
+              >
+                Book Consultation
+                <ArrowRight className="w-5 h-5" />
+              </Link>
+              <a
+                href={SITE.emiApplyUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-3 bg-emerald-500 text-white px-8 py-6 rounded-full font-black uppercase tracking-widest hover:bg-emerald-400 transition-colors duration-500 shadow-[0_18px_36px_rgba(16,185,129,0.35)]"
+              >
+                Apply Now - 0% EMI
+                <ArrowRight className="w-5 h-5" />
+              </a>
+            </div>
           </div>
         </div>
       </div>

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Star, ArrowRight, Microscope, Palette, HeartHandshake, Users, Award, Target } from 'lucide-react';
+import { Star, ArrowRight, Microscope, Palette, HeartHandshake, Users, Award, Target, Dna } from 'lucide-react';
 import { motion } from 'motion/react';
 import YouTubeVideoCard from '../components/YouTubeVideoCard';
 import VisitingCardSection from '../components/VisitingCardSection';
@@ -71,8 +71,56 @@ const homeStoryVideos = [
   { title: 'Beard restoration & density', id: 'VF3WSaSICy0' },
 ] as const;
 
+type HomeInfoTab = 'whyChoose' | 'mission' | 'vision';
+
+const homeInfoTabs: {
+  key: HomeInfoTab;
+  label: string;
+  heading: string;
+  paragraphs: string[];
+}[] = [
+  {
+    key: 'whyChoose',
+    label: 'Why Choose Hair4Life',
+    heading: 'Why Choose Hair4Life',
+    paragraphs: [
+      'There are many quality surgeons in hair restoration, and techniques have improved greatly over the last decade to create natural-looking frontal hairlines. At our facility, we perform FUI (Follicular Unit Implantation) with a strongly client-centered approach where each person receives personal care and focused attention.',
+      'We help clients understand hair restoration clearly—its benefits, limitations, and realistic expectations. Even though the procedure itself can be straightforward, the decision is significant. We provide complete information in a warm, relaxed professional atmosphere so you can decide what is best for you.',
+      'Large national chains often carry higher marketing and infrastructure costs, which can raise overall procedure pricing. At Hair4Life, our reputation is built mainly through outcomes, word of mouth, and social referrals.',
+      'Whether or not you choose to proceed with us, education remains our goal. Our selective client volume allows us to spend more time per consultation, with safety and clarity as top priorities.',
+      'At Hair4Life, there is no high-pressure selling and no misinformation. We offer both clinical and non-clinical hair and skin pathways, avoid false promises, and focus on the best achievable, natural-looking outcomes within practical budget expectations.',
+    ],
+  },
+  {
+    key: 'mission',
+    label: 'Our Mission',
+    heading: 'Our Mission',
+    paragraphs: [
+      'Hair 4 Life is committed to educating and improving the lives of people affected by hair loss. Our mission is to create awareness and help normalize hair loss across the medical community, media, and society.',
+      'Hair loss is not only a medical condition; it also affects confidence, identity, and day-to-day life. That is why we provide treatment guidance and supportive resources for people actively searching for effective solutions.',
+      'Through experienced cosmetologists and care professionals, we aim to restore dignity and self-respect while offering practical treatment planning.',
+      'We provide a full range of hair-loss and skin-care services in one place, combining technology, art, and science to deliver quality outcomes with convenience.',
+      'We maintain transparency—no pressure, no misinformation, and no unrealistic claims. Our promise is to deliver the most natural-looking and best possible result for each person.',
+    ],
+  },
+  {
+    key: 'vision',
+    label: 'Our Vision',
+    heading: 'Our Vision',
+    paragraphs: [
+      'At Hair4Life, we strive to provide cost-effective, premium-quality solutions backed by research, study, and continuous innovation.',
+      'We believe that small, consistent actions can create meaningful long-term impact for clients, communities, and society at large.',
+      'By understanding client needs deeply and delivering effective products and services, we aim to reduce the negativity associated with hair and skin concerns and help people live with confidence and well-being.',
+      'Our operational model is designed to accelerate responsible growth in the hair and skin industry while promoting positive social impact and a healthy environment.',
+      'Our vision is to build a harmonious, productive, and positive ecosystem where excellence, empathy, and responsibility guide everything we deliver.',
+    ],
+  },
+];
+
 const Home: React.FC = () => {
   const [isVisible, setIsVisible] = useState(false);
+  const [activeInfoTab, setActiveInfoTab] = useState<HomeInfoTab>('whyChoose');
+  const activeInfo = homeInfoTabs.find((tab) => tab.key === activeInfoTab) ?? homeInfoTabs[0];
 
   useEffect(() => {
     setIsVisible(true);
@@ -163,6 +211,20 @@ const Home: React.FC = () => {
               >
                 Discover H4L® Therapies
               </Link>
+            </div>
+            <div className={`mt-7 inline-flex flex-col sm:flex-row items-start sm:items-center gap-4 rounded-2xl border border-emerald-300/35 bg-gradient-to-r from-emerald-500/15 via-dark-900/60 to-emerald-400/10 px-5 py-4 transition-all duration-1000 delay-[780ms] ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`}>
+              <p className="text-sm md:text-base text-emerald-100 font-semibold">
+                0% EMI available on all treatments.
+              </p>
+              <a
+                href={SITE.emiApplyUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 rounded-full bg-emerald-500 px-6 py-2.5 text-[10px] font-black uppercase tracking-[0.22em] text-white hover:bg-emerald-400 transition-colors shadow-[0_10px_30px_rgba(16,185,129,0.38)]"
+              >
+                Apply Now
+                <ArrowRight className="w-3.5 h-3.5" />
+              </a>
             </div>
           </div>
         </div>
@@ -385,6 +447,58 @@ const Home: React.FC = () => {
                       <p className="text-slate-200 text-sm font-medium leading-relaxed">{item.desc || item.prev}</p>
                     </div>
                   </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Welcome + Why Choose / Mission / Vision */}
+      <section className="py-28 bg-gradient-to-br from-white via-emerald-50/20 to-white border-t border-emerald-100 relative overflow-hidden">
+        <div className="absolute inset-0 opacity-[0.04] pointer-events-none bg-[linear-gradient(to_right,#0f172a12_1px,transparent_1px),linear-gradient(to_bottom,#0f172a10_1px,transparent_1px)] bg-[size:48px_48px]" />
+        <div className="absolute top-0 right-0 w-80 h-80 bg-emerald-300/15 rounded-full blur-[90px] pointer-events-none" />
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+          <div className="text-center max-w-4xl mx-auto mb-10">
+            <h2 className="font-serif text-4xl md:text-5xl text-slate-950 font-bold tracking-tight uppercase drop-shadow-[0_1px_0_rgba(255,255,255,0.45)]">
+              Why Choose Us
+            </h2>
+            <div className="mt-4 flex items-center justify-center gap-3 text-emerald-600">
+              <span className="h-[1px] w-16 bg-emerald-400/70" />
+              <Dna className="h-5 w-5" strokeWidth={1.7} />
+              <span className="h-[1px] w-16 bg-emerald-400/70" />
+            </div>
+            <p className="mt-5 max-w-3xl mx-auto text-slate-800 font-semibold text-base md:text-lg leading-relaxed">
+              Choose Hair4Life for innovative hair and skin solutions, including our signature therapies and
+              personalized salon services, delivered by experts in a welcoming environment.
+            </p>
+          </div>
+
+          <div className="rounded-[2rem] border border-emerald-200 bg-white/90 overflow-hidden shadow-[0_24px_65px_rgba(16,185,129,0.12)]">
+            <div className="grid grid-cols-1 md:grid-cols-3 border-b border-emerald-100">
+              {homeInfoTabs.map((tab) => (
+                <button
+                  key={tab.key}
+                  type="button"
+                  onClick={() => setActiveInfoTab(tab.key)}
+                  className={`px-6 py-5 text-[11px] font-black uppercase tracking-[0.2em] transition-all border-b md:border-b-0 md:border-r border-emerald-100 last:border-r-0 ${
+                    activeInfoTab === tab.key
+                      ? 'bg-emerald-600 text-white'
+                      : 'bg-white text-slate-800 hover:bg-emerald-50'
+                  }`}
+                >
+                  {tab.label}
+                </button>
+              ))}
+            </div>
+
+            <div className="p-7 md:p-10">
+              <h3 className="text-3xl md:text-4xl font-serif text-emerald-800 mb-6 text-center">{activeInfo.heading}</h3>
+              <div className="space-y-5">
+                {activeInfo.paragraphs.map((paragraph, idx) => (
+                  <p key={`${activeInfo.key}-${idx}`} className="text-slate-700 leading-relaxed text-sm md:text-base">
+                    {paragraph}
+                  </p>
                 ))}
               </div>
             </div>
