@@ -198,35 +198,6 @@ const Results: React.FC = () => {
           ))}
         </div>
 
-        {/* Video Results Space (ready for 2 client videos) */}
-        <section className="mt-40">
-          <div className="flex items-center justify-between gap-4 mb-10">
-            <h2 className="text-3xl md:text-4xl font-black text-white">Video Results</h2>
-            <span className="text-[10px] font-black uppercase tracking-[0.3em] text-gold-400">
-              Coming next
-            </span>
-          </div>
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-            {[1, 2].map((slot) => (
-              <div
-                key={slot}
-                className="relative rounded-3xl border border-white/10 bg-dark-900/60 p-4 md:p-5"
-              >
-                <div className="aspect-video rounded-2xl border border-dashed border-gold-500/40 bg-dark-950/80 flex items-center justify-center text-center px-6">
-                  <div>
-                    <p className="text-gold-400 text-[10px] font-black uppercase tracking-[0.25em] mb-3">
-                      Video Slot 0{slot}
-                    </p>
-                    <p className="text-slate-400 text-sm font-medium">
-                      Reserved space for client result video {slot}.
-                    </p>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </section>
-
         <section className="mt-40">
           <div className="text-center mb-10">
             <span className="text-gold-400 text-[10px] font-black uppercase tracking-[0.3em] block mb-3">

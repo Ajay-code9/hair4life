@@ -43,6 +43,21 @@ const Footer: React.FC = () => {
             <p className="text-sm font-medium leading-relaxed max-w-xs text-white">
               Ahmedabad's premier destination for advanced hair restoration and scalp care. We combine medical expertise with artistic vision to restore your confidence.
             </p>
+            <div className="inline-flex items-center gap-3 rounded-2xl border border-white/10 bg-dark-900/60 px-4 py-3">
+              <img
+                src="/images/isologo.webp"
+                alt="ISO 9001:2015 Certified Clinic"
+                width={44}
+                height={44}
+                className="h-11 w-11 object-contain"
+                loading="lazy"
+                decoding="async"
+              />
+              <div className="leading-tight">
+                <p className="text-[10px] uppercase tracking-[0.18em] font-black text-gold-400">ISO Certified</p>
+                <p className="text-xs font-semibold text-white">ISO 9001:2015 Certified Clinic</p>
+              </div>
+            </div>
             <div className="flex space-x-4">
               <a
                 href={SITE.social.facebook}
