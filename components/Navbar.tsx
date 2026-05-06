@@ -3,6 +3,7 @@ import { Link, useLocation } from 'react-router-dom';
 import { Menu, X, Phone, MapPin, Mail, Clock, ChevronDown } from 'lucide-react';
 import { SITE } from '../config/site';
 import { clinicDirectionsHref } from '../utils/clinicDirections';
+import { IsoCertificationLine } from './IsoCertificationLine';
 
 const Navbar: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -75,20 +76,23 @@ const Navbar: React.FC = () => {
   const [isProceduresOpen, setIsProceduresOpen] = useState(false);
 
   const BrandLogo = () => (
-    <div className="flex items-center gap-3 md:gap-4 select-none group">
-      <img
-        src={SITE.logoUrl}
-        alt={SITE.logoAlt}
-        width={220}
-        height={56}
-        className="h-9 md:h-11 w-auto max-h-12 object-contain object-left drop-shadow-lg"
-        decoding="async"
-      />
-      <div className="hidden sm:flex flex-col border-l border-white/20 pl-3 md:pl-4 min-w-0">
-        <span className="text-white font-black text-xs md:text-sm tracking-[0.2em] uppercase leading-none truncate">Hair4Life</span>
-        <span className="text-gold-500 font-black text-xs md:text-sm tracking-[0.2em] uppercase leading-none mt-1 truncate">Clinic</span>
-        <span className="text-slate-500 text-[8px] uppercase tracking-widest mt-1 font-bold leading-tight">Advanced Hair Restoration</span>
+    <div className="flex flex-col gap-1 min-w-0 items-start select-none group">
+      <div className="flex items-center gap-3 md:gap-4 w-full">
+        <img
+          src={SITE.logoUrl}
+          alt={SITE.logoAlt}
+          width={220}
+          height={56}
+          className="h-9 md:h-11 w-auto max-h-12 object-contain object-left drop-shadow-lg shrink-0"
+          decoding="async"
+        />
+        <div className="hidden sm:flex flex-col border-l border-white/20 pl-3 md:pl-4 min-w-0 flex-1">
+          <span className="text-white font-black text-xs md:text-sm tracking-[0.2em] uppercase leading-none truncate">Hair4Life</span>
+          <span className="text-gold-500 font-black text-xs md:text-sm tracking-[0.2em] uppercase leading-none mt-1 truncate">Clinic</span>
+          <span className="text-slate-500 text-[8px] uppercase tracking-widest mt-1 font-bold leading-tight">Advanced Hair Restoration</span>
+        </div>
       </div>
+      <IsoCertificationLine className="opacity-95 w-full mt-0.5" />
     </div>
   );
 

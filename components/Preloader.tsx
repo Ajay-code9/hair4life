@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { SITE } from '../config/site';
+import { IsoCertificationLine } from './IsoCertificationLine';
 
 const Preloader: React.FC<{ onComplete: () => void }> = ({ onComplete }) => {
   const [isExiting, setIsExiting] = useState(false);
@@ -36,8 +37,13 @@ const Preloader: React.FC<{ onComplete: () => void }> = ({ onComplete }) => {
           alt={SITE.logoAlt}
           width={280}
           height={72}
-          className="h-16 sm:h-20 md:h-24 w-auto max-w-[min(85vw,320px)] object-contain mb-6 animate-slide-up delay-100 drop-shadow-xl"
+          className="h-16 sm:h-20 md:h-24 w-auto max-w-[min(85vw,320px)] object-contain mb-3 animate-slide-up delay-100 drop-shadow-xl"
           decoding="async"
+        />
+
+        <IsoCertificationLine
+          align="center"
+          className="mb-5 max-w-[min(90vw,22rem)] mx-auto animate-slide-up delay-100 opacity-90"
         />
 
         {/* Drawing Line */}

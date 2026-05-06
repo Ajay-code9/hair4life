@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { Facebook, Twitter, Instagram, Mail, Phone, MapPin } from 'lucide-react';
 import { SITE } from '../config/site';
 import { clinicDirectionsHref } from '../utils/clinicDirections';
+import { IsoCertificationLine } from './IsoCertificationLine';
 import { buildNewsletterMailto, buildNewsletterWhatsAppText, openWhatsAppMessage } from '../utils/contactOutreach';
 
 const Footer: React.FC = () => {
@@ -37,27 +38,13 @@ const Footer: React.FC = () => {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-16 md:gap-8">
           
           <div className="space-y-8">
-            <Link to="/" className="inline-block">
+            <Link to="/" className="inline-flex flex-col gap-2 items-start">
               <BrandLogoSmall />
+              <IsoCertificationLine withIsoMark />
             </Link>
             <p className="text-sm font-medium leading-relaxed max-w-xs text-white">
               Ahmedabad's premier destination for advanced hair restoration and scalp care. We combine medical expertise with artistic vision to restore your confidence.
             </p>
-            <div className="inline-flex items-center gap-3 rounded-2xl border border-white/10 bg-dark-900/60 px-4 py-3">
-              <img
-                src="/images/isologo.webp"
-                alt="ISO 9001:2015 Certified Clinic"
-                width={44}
-                height={44}
-                className="h-11 w-11 object-contain"
-                loading="lazy"
-                decoding="async"
-              />
-              <div className="leading-tight">
-                <p className="text-[10px] uppercase tracking-[0.18em] font-black text-gold-400">ISO Certified</p>
-                <p className="text-xs font-semibold text-white">ISO 9001:2015 Certified Clinic</p>
-              </div>
-            </div>
             <div className="flex space-x-4">
               <a
                 href={SITE.social.facebook}

@@ -3,6 +3,8 @@
  */
 export const SITE = {
   clinicName: 'Hair4Life Clinic',
+  /** Shown directly under the logo site-wide (navbar, footer, preloader). */
+  isoCertificationLine: 'AN ISO 9001 : 2015 CERTIFIED COMPANY',
   /** Official logo — file in `public/images/logo.svg` (not used as favicon). */
   logoUrl: '/images/logo.svg',
   logoAlt: 'Hair4Life Clinic',
